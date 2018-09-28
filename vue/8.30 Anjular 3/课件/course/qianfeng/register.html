@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+		<style type="text/css">
+		  h1{margin: 0;}
+			header{
+			  width: 100%;
+			  height: 100px;
+			  background-color: #f66;
+			  color: #fff;
+			}
+			header h1{
+			  line-height: 100px;
+			  
+			}
+			.registerForm{
+			  padding: 50px;
+			}
+		</style>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  <div class="container">
+	    <header class="text-center"><h1>千锋注册页面</h1></header>
+	  	<div class="row">
+	  		<div class="col-xs-6">
+	  		  <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1789033835,4012923115&fm=117&gp=0.jpg"/>
+	  		</div>
+	  		<div class="col-xs-6">
+	  		  <form class="registerForm">
+          <div class="form-group">
+            <label for="username">用户名</label>
+            <input type="text" class="form-control" ng-model="username" id="username" placeholder="用户名">
+          </div>
+          <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" ng-model="password" id="password" placeholder="密码">
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" checked=""> 用户协议
+            </label>
+          </div>
+          <button type="button" class="btn btn-success" ng-click="register(username,password)">注册</button>
+        </form>
+	  		</div>
+	  	</div>
+	  	<footer>页脚部分</footer>
+	  </div>
+	</body>
+	<script type="text/javascript">
+		var app = angular.module("app",[]);
+		app.controller("myCtrl",function($scope,$http){
+		  $scope.username = "";
+		  $scope.password = "";
+		  
+		  $scope.register = function(username,password){
+		    console.log(username)
+		    if(username == "" || password == ""){
+		      alert("信息不完整");
+		    }else{
+		      var url = "http://localhost:3000/register?username=" + username + "&password=" + password;
+		      $http({
+		        method:"GET",
+		        url:url
+		      }).then(function(response){
+		        console.log(response.data)
+		      },function(err){
+		        console.log(err)
+		      })
+		    }
+		  }
+		});
+	</script>
+</html>

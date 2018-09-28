@@ -1,0 +1,349 @@
+一、为什么学习vue.js
+	vue.js兼具angular.js和react的优点，并且剔除了他们的缺点
+	官网：http://cn.vuejs.org/
+	手册：http://cn.vuejs.org/v2/api/
+	优点：
+		methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节
+	
+	
+二、vue.js是什么
+	Vue是一个"MVVM框架（库）"，和angular类似，相比angular小巧，比较容易上手
+	Vue是一个构建用户界面点的渐进式框架，与其他重量级框架不同的是，vue采用自底向上增量开发的设计
+	vue的核心库"只关注视图层"，并且"非常容易学习"，非常容易与其他库或者已有的项目整合，另一方面，vue完全有能力驱动采用单文件组件和vue生态系统支持的库开发的复杂单页面应用
+	vue的目标是通过尽可能简单的API实现"响应的数据绑定"和"组合的视图组件"
+三、MVC/MVP/MVVM的区别
+	复杂的软件必须有清晰合理的架构，否则无法开发和维护
+	MVC、MVP和MVVM是用来解决界面呈现和逻辑代码分离而出现的模式
+	通俗的讲：就是方便大多数人开发和维护出现的代码分离模式
+	课外拓展：http://www.cnblogs.com/lori/p/3501764.html
+四、MVC
+	视图（view）:用户界面
+	控制器（controller）：业务逻辑
+	模型（Model）:数据处理
+五、MVP
+	MVP 是从经典的模式MVC演变而来，它们的基本思想有相通的地方：Controller/Presenter负责逻辑的处理，Model提供数据，View负 责显示。作为一种新的模式，MVP与MVC有着一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MVC中View会从直接Model中读取数据而不是通过 Controller。
+六、MVVM
+	MVVM在概念上是真正将页面与数据逻辑分离的模式，在开发方式上，它是真正将前台代码开发者（JS+HTML）与后台代码开发者分离的模式（asp,asp.net,php,jsp）
+	双向绑定：view的变动，自动反映在viewModel,反之亦然
+七、vue对比其他框架
+	1、vue-angular
+		1）、vue在设计之初参考了很多angular的思想
+		2）、vue相比于angular来说更加的简单
+		3)、vue相当于angular要变得小巧很多，运行速度比angular快
+		4）、vue和angular绑定都可以用{{}}
+		5）、vue指令用v-xxx，angular用ng-xxx
+		6）、vue中数据放在data对象里面，angular数据绑定在$scope上面
+		7）、vue有组件化概念，angular中没有
+		8)、angular  ng-src 有{{}}，vue中的属性绑定 ：src没有
+	2、vue-react
+		他们都有：
+		1）、react和vue都是用虚拟DOM Virtual DOM
+		2)、React和Vue都提供了响应式（Reactive）和组件化（Componsable）的视图组件
+		3）、React和vue都将注意力集中保持在核心库，伴随于此，有配套的路由和负责处理全局状态管理的库
+		4）、React使用JSX渲染页面，Vue使用简单的模板
+		5）、Vue比react运行更快
+八、初始vuejs
+	1）、下载vuejs的生产版本
+		下载地址：http://cn.vuejs.org/v2/guide/installation.html
+	2）、实例化一个Vue对象
+		var vm = new Vue({
+		  // 选项
+		})
+	3)、在页面中div#box
+	4)、修改配置选项
+		var vw = new Vue({
+			el:"#box",//选择元素
+			data:{//定义数据
+				msg:"这里是Vue",
+				name："vue"
+				
+			}
+		})
+	5)、循环数据：传入数组，对象，使用v-for来进行循环遍历数据
+		list:[1,2,4]
+		<li v-for="item in list">{{item}}</li>
+		
+		list1:[{
+					name:"张三",
+					age:30
+				},
+				{
+					name:"李四",
+					age:30
+				},{
+					name:"王五",
+					age:30
+				}]
+		<li v-for="item in list1">
+			{{item.name}}/{{item.age}}
+		</li>
+	6）、方法事件
+		所有的方法都配置于methods选项中
+		methods:{//放置方法，访问data中的数据，可以直接使用this访问，执行通过v-on来访问,也可以使用简写的形式@click来执行方法
+				getName:function(){
+					alert(this.name)
+				},
+				run:function(){
+					alert("这是run方法");
+				}
+			}
+		<div v-on:click="getName()">执行getName方法</div>
+		<br />
+		<div  @click="run()">执行run方法</div>
+	7）、双向的数据绑定
+		<input type="text" v-model="name" />
+		{{name}}
+	8)、使用jquery实现todolist
+		a)引入bootstrap
+		b)绑定事件
+			添加数据使用append
+			删除事件使用remove
+	9）、使用vue实现todolist
+		a)引入bootstrap.css,编辑界面
+		b)实例化vue.js
+			data:{
+				info:""//输入框的值
+				list:[]//数据列表，循环数据使用v-for，因为需要涉及到删除功能，所以需要遍历的时候将索引值也传递进去(item,key) in list
+			}，
+			methods:{
+				addData:function(){//可以传值
+					this.list.push(this.info)
+					console.log(this.info)
+				},
+				deleteData:function(key){
+					this.list.splice(key,1)
+				}
+			}
+		<tr v-for="(item,key) in list">
+            <td>{{item}}</td>
+            <td><button type="button" class="btn btn-danger " @click="deleteData(key)">删除</button></td>
+        </tr>
+九、下午
+	1）文本绑定
+		v-text指令
+		<span v-text="name"></span>   相当于angularjs中的ng-bind
+		給data中添加：test:"<strong>你会解析吗</strong>",
+		如果使用{{test}}则会直接显示出所有的代码，不会解析
+		如果使用<span v-text="test"></span> 则会直接显示出所有的代码，不会解析
+		我们可以使用v-html来解析代码
+		<span v-html="test"></span>
+	2）绑定属性
+		data中添加一个id:"这是一个id"
+		<div v-bind:id="id">添加属性</div>
+		这里需要注意不要加{{}}  跟angular中的ng-src等属性一样
+		简写形式
+		<div :id="id">添加属性</div>
+		
+		url:"https://www.baidu.com/img/bd_logo1.png"
+		<img :src="url"/>
+	3）事件
+		复习上午学习的todolist
+		事件对象,注意将$event传入方法中
+		<button data-id="1638" data-user="wxx" @click="requestData($event)">事件对象</button>
+		requestData:function(event){
+					console.log(event)
+				}
+		数据在srcElement中的dataset中
+	4）表达式
+		data:{number:200}
+			{{number+200}}
+		data:{ok:true}
+			{{ok:"是"："否"}}
+		data:{msg:"倒序输出该字段"}
+			{{msg.split("").reverse().join("")}}
+	5)、计算属性--输入提示---autocomplete(表单属性)
+		computed:{
+			c:function(){
+				return this.a + 6;
+			},
+			reverseMsg:function(){
+				return this.message.split("").reverse().join("");
+			}
+		}
+		c={{c}}
+		<br />
+		msg={{reverseMsg}}
+		注意，当message改变之后，会重新计算并且改变视图，写一个按钮来执行改变message为"改变了message"
+		
+		
+		案例
+			data中
+				search:"",
+				searchList:["appale","pear","banner","orange"],
+			cumputed
+			
+			<input type="text"  v-model="search"/>
+			<p v-for="item in searchList">{{item}}</p>
+			
+			添加计算属性
+			listSearch:function(){
+				var arr = [];
+				var that = this;
+				this.searchList.forEach(function(val){
+					if(val.indexOf(that.search)!=-1){
+						arr.push(val);
+					}
+				})
+				return arr;
+			}
+			更改循环条件为
+			<p v-for="item in listSearch">{{item}}</p>
+		
+	6）监听数据变化  watch
+		 // vm.$watch(vm)    vm.msg 拿到 vue上面data绑定的数据
+        /*注意监听文本框改变的时候 这里直接写data上面绑定的值*/
+         <input type="text" v-model='msg'>
+          data:{
+                msg:'我是一个数据'
+            }
+            
+         vm.$watch('msg',function(newValue,oldValue){
+
+            console.log(newValue+'-------'+oldValue);
+
+
+        })
+        
+                       第二种写法
+             data:{
+               msg:'我是一个数据'
+            },
+            watch:{
+
+                msg:function(newValue,oldValue){
+
+                    console.log(newValue+'-------'+oldValue);
+                }
+            }
+	7）计算属性和方法的对比
+		案例：翻转字符串----多次调用
+		//计算属性只有在它的相关依赖发生改变时才会重新取值。这就意味着只要 message 没有发生改变，多次访问 reversedMessage 计算属性会立即返回之前的计算结果，而不必再次执行函数。
+    	//总结:计算属性比方法的效率更高
+    8）计算属性和watch对比
+    	Vue.js 提供了一个方法 $watch ，它用于观察 Vue 实例上的数据变动。当一些数据需要根据其它数据变化时， $watch 很诱人 —— 特别是如果你来自 AngularJS 。不过，通常更好的办法是使用计算属性而不是一个命令式的 $watch 回调。思考下面例子：
+    	 <input type="text" v-model="firstName">
+        <input type="text" v-model="lastName">
+       {{fullName}}
+       watch: {
+          firstName:function(val){
+              this.fullName=val+this.lastName;
+          },
+          lastName:function(val){
+              this.fullName=this.firstName+val;
+          }
+      }
+     9）计算属性实现
+     	 computed: {
+	        fullName: function () {
+	            return this.firstName + ' ' + this.lastName
+	        }
+	      }
+	10）class语法
+		 .static{
+            width: 200px;
+            height: 200px;
+        }
+        .class-a{
+            width: 200px;
+            height: 200px;
+            background: orange;
+        }
+        .class-b{
+            background: blue;
+        }
+		<div class="static" :class="{ 'class-a': isA, 'class-b': isB }">
+            v-bind-class111
+        </div>
+        <br>
+        <div :class="classObject">classObject</div>
+		//    可以传给 v-bind:class 一个对象，以动态地切换class。注意 v-bind:class 指令可以与普通的 class 特性共存。
+		var vm = new Vue({
+		    el: '#demo',    //div   .class
+		    data: {
+		        isA: true,
+		        isB: false,
+		        classObject: {
+		            active: true,
+		            'class-a': true
+		        }
+		
+		    }
+		})
+	11)style语法
+	//v-bind:style的对象语法十分直观——看着非常像 CSS，其实它是一个JavaScript对象。CSS属性名可以用驼峰式（camelCase）或短横分隔命名（kebab-case）
+		 <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">Style 对象语法</div>
+		  data: {
+            activeColor: 'red',
+            fontSize: 30
+        }
+    12）style数组
+    	<div v-bind:style="[styleObjectA, styleObjectB]">Style 数组语法</div>
+    	 data: {
+            styleObjectA: {
+                color: 'red'
+            },
+            styleObjectB: {
+                fontSize: '30px'
+            }
+        }
+    13）v-if---dom操作
+    	v-else
+    	v-show--显示隐藏
+    	<h1 v-if="ok">这是一个h1</h1>
+    	  <h1 v-show="ok">这是一个h1</h1>
+    	   <div v-if="Math.random()>0.5">
+		                    大于0.5
+	        </div>
+	        <div v-else>
+		                   小于0.5
+	        </div>
+    	 data: {
+            ok:true
+        }
+    14、循环的使用
+    	多层循环
+    	可以使用in  也可以使用of
+    15、   过滤器
+            Vue.filter('reverseMsg',function(value){
+                return value.split('').reverse().join('');
+            });
+            Vue.filter('toDou',function(value,n1,n2){
+               console.log(value+'--'+n1+'--'+n2);
+                if(n1>n2){
+                    return 123;
+                }else{
+                    return 456;
+                }
+            })
+		 data:{
+                msg:'我是代码搬砖工',
+                num:'123'
+            }
+         {{msg}}
+        {{msg | reverseMsg}}
+        {{num}}
+        {{num | toDou(12,14)}}
+    16）、ajax请求
+    	axios：http://blog.csdn.net/liaoxiaojuan233/article/details/54176798
+    	fetch:https://segmentfault.com/a/1190000003810652
+    	// 1.  应用fetch或axios 获取数据
+    	 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    	 axios.get(url)
+           .then(function (response) {
+               console.log(response.data.result);
+
+               _that.list=response.data.result;
+           })
+           .catch(function (error) {
+               console.log(error);
+           });
+        //2. https://github.com/pagekit/vue-resource
+         <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+         //第二个参数如果返回数据为callback时可以不设置
+          this.$http.jsonp(api,{
+             jsonp:'cb'//如果接口为不为callback,为cb时，修改此参数，例如https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=php
+         }).then(function(data){
+             console.log(data.body);
+             that.list=data.body.s;
+          },function(){
+          })

@@ -1,0 +1,22 @@
+一/redux
+	http://cn.redux.js.org/
+	
+	cnpm i redux --save
+	
+	import {createStore} from "redux"
+	//详见TodoRedux.js文件
+	var reducer = function(state,action){
+		
+		return state;
+	}
+	
+	var store = createStore(reducer);
+	
+	store.dispatch({
+		type:"ADD-ITEM",
+		val:""
+	})
+
+	store.getState();
+	
+	store.subscribe();

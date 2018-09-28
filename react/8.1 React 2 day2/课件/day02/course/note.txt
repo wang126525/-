@@ -1,0 +1,60 @@
+生命周期
+	初始化阶段
+		getDefaultProps：只调用一次，实例之间共享引用
+		getInitialState：初始化每个实例特有的状态
+		componentWillMount：render之前最后一次修改状态的机会，通常用来做ajax请求
+		render：只能访问this.props和this.state，只有一个顶层组件，不允许修改状态和DOM输出
+		componentDidMount：成功render并渲染完成真实DOM之后触发，可以修改DOM
+
+	
+	运行时阶段
+		componentWillReceiveProps：父组件修改属性触发，可以修改新属性、修改状态
+		shouldComponentUpdate：返回false会阻止render调用
+		componentWillUpdate：不能修改属性和状态
+		render：只能访问this.props和this.state，只有一个顶层组件，不允许修改状态和DOM输出
+		componentDidUpdate：可以修改DOM
+
+	销毁阶段
+		componentWillUnmount：在删除组件之前进行清理操作，比如计时器和事件监听器
+		
+		
+		unmountComponentAtNode:卸载组件
+
+es6写法
+	安装模块
+		cnpm i babel-preset-react --save
+	配置文件中
+		js模块添加一个预设  react
+			query:{//es6预设
+            	presets:["es2015","react"]
+            }
+          删除jsx-loader的使用   --- 预设中babel已经具备了解析jsx语法的能力
+         
+          组件基本结构
+        class HelloWorld extends React.Component{
+			constructor(props){
+				super(props);//继承了父类的属性
+			}
+			
+			render(){
+				return (
+					<h1>helloworld</h1>
+				)
+			}
+		}
+	constructor的作用很强大
+		去除了es5中的一个钩子函数getInitialState，es6中如果要定义初始的变量，在构造器中定义
+			this.state = {
+				num:10
+			}
+		es6中的事件的指向问题
+			自定义事件中的this如果需要指向当前的组件，那么需要在构造器中绑定一下this
+				this.clickHandler = this.clickHandler.bind(this);
+
+react 动画
+	https://facebook.github.io/react/docs/animation.html
+	安装模块
+		cnpm i react-addons-css-transition-group --save
+	es6/pro/md/MoreContent.js
+			
+	

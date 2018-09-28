@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.active{
+			  color: #f66;
+			}
+		</style>
+		<script src="../jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../jslib/angular-ui-router.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+	  <ul>
+	    <li>
+	      <a ui-sref="home" ui-sref-active="active">首页</a>
+	      <a ui-sref="kind" ui-sref-active="active">分类</a>
+	      <a ui-sref="cart" ui-sref-active="active">购物车</a>
+	    </li>
+	  </ul>
+	  <ui-view></ui-view>
+	</body>
+	<script type="text/javascript">
+		var app = angular.module("app",["ui.router"]);
+		app.component("home",{
+      templateUrl:"./views/home.html",
+      controller:function(){
+        this.msg = "测试"
+      }
+    });
+		app.component("kind",{
+		  bindings:{kind:"<"},
+      templateUrl:"./views/kind.html",
+      controller:function(){
+        this.list = [{
+              id:0,
+              name:"刘程皓",
+              age: 30
+            },
+            {
+              id:1,
+              name:"夏松",
+              age: 38
+            },
+            {
+              id:2,
+              name:"闫峥",
+              age: 18
+            }]
+      }
+    });
+		app.component("cart",{
+      templateUrl:"./views/cart.html",
+      controller:function(){
+      }
+    });
+    app.component("detail",{
+      templateUrl:"./views/detail.html",
+      controller:function(){
+      }
+    });
+		app.config(function($stateProvider) {
+      var homeState = {
+        name: 'home',
+        url: '/home',
+//      template: '<h3>首页</h3>'
+//      templateUrl:"./views/home.html",
+//      controller:"homeCtrl"
+        component:"home"
+      }
+    
+      var kindState = {
+        name: 'kind',
+        url: '/kind',
+//      template: '<h3>分类</h3>'
+//      templateUrl:"./views/kind.html"
+        component:"kind",
+        resolve: {
+          kind: function(KindService) {
+            return KindService.getAllKind();
+          }
+        }
+      }
+      
+      var cartState = {
+        name: 'cart',
+        url: '/cart',
+//      template: '<h3>购物车</h3>'
+//      templateUrl:"./views/cart.html"
+        component:"cart"
+      }
+    
+       var detailState = {
+        name: 'detail',
+        url: '/detail/{kindID}',
+//      template: '<h3>购物车</h3>'
+//      templateUrl:"./views/cart.html"
+        component:"detail",
+         resolve: {
+          detail: function(KindService, $transition$) {
+            return KindService.getDetail($transition$.params().kindID);
+          }
+        }
+      }
+      $stateProvider.state(homeState);
+      $stateProvider.state(kindState);
+      $stateProvider.state(cartState);
+      $stateProvider.state(detailState);
+    });
+    
+    app.controller("homeCtrl",function($scope){
+      $scope.msg = "test"
+    })
+	</script>
+</html>

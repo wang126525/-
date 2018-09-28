@@ -1,0 +1,31 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+    
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#f66",
+    "navigationBarTitleText": "小程序",
+    "navigationBarTextStyle":"#ff0",
+    "enablePullDownRefresh":"true",
+    "backgroundColor":"#000"
+  },
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#f66",
+    "backgroundColor": "#0f0",
+    
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "home首页"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "text": "日志"
+      }
+    ]
+  }
+}

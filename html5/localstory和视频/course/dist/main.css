@@ -1,0 +1,48 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  box-sizing: border-box; }
+
+.container {
+  width: 1024px;
+  height: 576px;
+  margin: 10px auto;
+  position: relative; }
+  .container #vdo {
+    width: 100%;
+    height: 100%; }
+  .container #test {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+  .container .controls {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    background-color: #eee;
+    bottom: 0;
+    left: 0;
+    display: flex; }
+    .container .controls .playImg, .container .controls .volumeImg, .container .controls .fullscreenImg {
+      flex: 1;
+      text-align: center; }
+      .container .controls .playImg img, .container .controls .volumeImg img, .container .controls .fullscreenImg img {
+        width: 24px;
+        margin-top: 8px; }
+    .container .controls .currentimeText {
+      flex: 2;
+      line-height: 40px; }
+    .container .controls .playRange {
+      flex: 10; }
+      .container .controls .playRange input {
+        width: 100%;
+        display: block;
+        margin-top: 9px; }
+    .container .controls .volumeRange {
+      flex: 2; }
+      .container .controls .volumeRange input {
+        width: 100%;
+        display: block;
+        margin-top: 9px; }

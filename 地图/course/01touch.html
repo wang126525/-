@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#test{
+				width: 100px;
+				height: 100px;
+				background-color: #f66;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="test"></div>
+	</body>
+	<script type="text/javascript">
+		var startY = null,endY = null,moveY = null;
+		document.getElementById("test").addEventListener("touchstart",function(event){
+			console.log(event);
+			startY = event.changedTouches[0].pageY;
+		},false)
+		document.getElementById("test").addEventListener("touchmove",function(event){
+			console.log(event);
+			endY = event.changedTouches[0].pageY;
+		},false)
+		document.getElementById("test").addEventListener("touchend",function(event){
+			console.log(event);
+			moveY = endY -  startY;
+			if(moveY > 0){
+				console.log("down")
+			}else{
+				console.log("up")
+			}
+		},false)
+	</script>
+</html>

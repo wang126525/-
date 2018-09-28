@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://mockjs.com/dist/mock.js" type="text/javascript" charset="utf-8"></script>
+	
+	
+	<script type="text/javascript">
+		Mock.setup({
+		    timeout: '1000-4000'
+		})
+		Mock.Random.extend({
+		    constellation: function(date) {
+		        var constellations = ['白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座', '水瓶座', '双鱼座']
+		        return this.pick(constellations)
+		    }
+		})
+		Mock.mock("http://www.baidu.com/list","post",{
+			 'list|1-10': [{
+			        // 属性 id 是一个自增数，起始值为 1，每次增 1
+			        'id|+1': 1,
+			        "email":Mock.Random.email(),
+			        "str":Mock.Random.constellation(),
+			        "date":Mock.mock('@date("yyyy-MM-dd")')
+//					"email":Mock.mock('@email')
+			    }],
+			   "test":{
+			   		'id': 1,
+			        "email":Mock.Random.email(),
+			        "str":Mock.Random.constellation(),
+			        "date":Mock.mock('@date("yyyy-MM-dd")')
+			   }
+		})
+		
+		$.ajax({
+			type:"post",
+			url:"http://www.baidu.com/list",
+			success:function(data){
+				console.log(data)
+			}
+		});
+		
+		
+	</script>
+</html>
+
+<!--
+	test.html?__hbt=1501724733735:44 {
+    "list": [
+        {
+            "id": 1,
+            "email": "q.cqjqn@xsworypyi.mt",
+            "str": "狮子座",
+            "date": "1999-06-02"
+        },
+        {
+            "id": 2,
+            "email": "q.cqjqn@xsworypyi.mt",
+            "str": "狮子座",
+            "date": "1999-06-02"
+        },
+        {
+            "id": 3,
+            "email": "q.cqjqn@xsworypyi.mt",
+            "str": "狮子座",
+            "date": "1999-06-02"
+        },
+        {
+            "id": 4,
+            "email": "q.cqjqn@xsworypyi.mt",
+            "str": "狮子座",
+            "date": "1999-06-02"
+        },
+        {
+            "id": 5,
+            "email": "q.cqjqn@xsworypyi.mt",
+            "str": "狮子座",
+            "date": "1999-06-02"
+        },
+        {
+            "id": 6,
+            "email": "q.cqjqn@xsworypyi.mt",
+            "str": "狮子座",
+            "date": "1999-06-02"
+        }
+    ],
+    "test": {
+        "id": 1,
+        "email": "g.berzve@vmvddp.za",
+        "str": "白羊座",
+        "date": "2015-02-09"
+    }
+}
+	
+	
+	
+	
+-->

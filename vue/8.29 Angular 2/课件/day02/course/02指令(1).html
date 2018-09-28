@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/fetch-jsonp/1.1.1/fetch-jsonp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  <div mydir-test></div>
+	</body>
+	<script src="module/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="service/myAjax.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	     /**
+	      * 自定义指令  定义使用驼峰式  使用时用-分开
+	      */
+	     app.directive("mydirTest",function(){
+	       return {
+	         template:"<h1>我就是自定义的一个指令</h1>"
+	       }
+	     })
+      app.controller("myCtrl",function($scope){
+      
+      });
+	</script>
+</html>

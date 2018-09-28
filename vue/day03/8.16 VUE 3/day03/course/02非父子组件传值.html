@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<v-a></v-a>
+			<hr />
+			<v-b></v-b>
+			<hr />
+			<v-c></v-c>
+		</div>
+	</body>
+	<template id="atem">
+		<div>
+			这是A组件<button @click="send()">发送数据给C组件</button>
+		</div>
+	</template>
+	<template id="btem">
+		<div>
+			这是B组件<button @click="send()">发送数据给C组件</button>
+		</div>
+	</template>
+	<template id="ctem">
+		<div>
+			这是C组件<button @click="send()">重新发送</button>
+			<br />
+			来自A组件的数据-----{{a}}
+			<br />
+			来组B组件的数据-----{{b}}
+		</div>
+	</template>
+	<script type="text/javascript">
+		/**
+		 * 兄弟组件传值-----广播机制
+		 * 		一方负责广播，一方负责接收
+		 * 		$emit
+		 * 		$on
+		 * 	先new一个Vue实例来负责广播和接收的载体 --- myVue
+		 * 		myVue.$emit("事件名称",参数)
+		 * 		myVue.$on("事件名称",带参数的函数)----参数就是emit传递过来的参数
+		 */
+		
+		var myVue = new Vue();//载体  广播和接收
+		var Atem = {
+			template:"#atem",
+			methods:{
+				send(){
+					myVue.$emit("aSend","我是A组件")
+				}
+			}
+		}
+		var Btem = {
+			template:"#btem",
+			methods:{
+				send(){
+					//此处发送数据给C
+					myVue.$emit("bSend","我是B组件")
+				}
+			}
+		}
+		var Ctem = {
+			template:"#ctem",
+			data:function(){
+				return {
+					a:"aaa",
+					b:"bbb"
+				}
+			},
+			methods:{
+				send(){
+					//此处发送数据给C
+					myVue.$emit("cSend","我是C组件,我可以接收数据啦")
+				}
+			},
+			mounted(){
+				var that = this;
+				myVue.$emit("cSend","我是C组件")
+				myVue.$on("aSend",function(data){
+					that.a = data;
+				})
+				myVue.$on("bSend",function(data){
+					that.b = data;
+				})
+			}
+		}
+		var  vw = new Vue({
+			el:"#app",
+			data:{
+				
+			},
+			components:{
+				"v-a":Atem,
+				"v-b":Btem,
+				"v-c":Ctem
+			}
+		})
+	</script>
+</html>

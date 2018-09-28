@@ -1,0 +1,42 @@
+@import "./main.scss";
+#myhead{
+    width: 100%;
+    height: 100%;
+    @include displayflex;
+    line-height: 44px;
+    .back{
+        width: 30px;margin-left: 10px;
+    }
+    .deng{
+        flex: 1;
+        text-align: center;
+    }
+    .ce{
+        width: 60px;
+    }
+}
+#mycontent{
+    width: 70%;
+    left: 15%;
+    margin: 100px auto;
+    height: 200px;
+    input[type=text]{
+        box-sizing: border-box;
+        width: 100%;
+        height: 30px;
+        text-indent: 8px;
+    }
+    input[type=password]{
+        box-sizing: border-box;
+        width: 100%;
+         height: 30px;
+         margin-top:20px ;
+         text-indent: 8px;
+    }
+    input[type=button]{
+        width: 70%;
+        margin-left: 15%;
+        margin-top: 20px;
+         height: 40px;
+    }
+}

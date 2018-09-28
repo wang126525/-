@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<style type="text/css">
+			*{padding: 0;margin: 0;list-style: none;}
+			#list{
+				position: absolute;
+				left: 0;
+				top:50px;
+				width: 100%;
+			}
+			#list li{
+				width: 100%;
+				height: 30px;
+				border-bottom: 1px solid #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="list">
+			<li>第1个</li>
+			<li>第2个</li>
+			<li>第3个</li>
+			<li>第4个</li>
+			<li>第5个</li>
+			<li>第6个</li>
+			<li>第7个</li>
+			<li>第8个</li>
+			<li>第9个</li>
+			<li>第10个</li>
+		</ul>
+		<input type="button" name="btn" id="btn" value="点击转换" />	
+		
+	</body>
+	<script src="jslib/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jslib/zepto/fx.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jslib/zepto/src/touch.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+//		$("#list").find("li").on("tap",function(){
+//			var index = $(this).index();
+//			console.log(index)
+//		})
+		
+		/**
+		 * 发现zepto 中touch中的swipe事件无效，引入专门的一个touch.js
+		 */
+		$("#btn").on("tap",function(){
+			console.log("111111111111")
+			$("#list").animate({
+				"left":"200px"
+			})
+		})
+		$("#list").find("li").on("swipeLeft",function(){
+			console.log("left")
+		})
+		
+	</script>
+</html>

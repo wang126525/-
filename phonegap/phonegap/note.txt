@@ -1,0 +1,29 @@
+一、安装桌面版phonegap，用于创建项目，并且启动服务器
+二、安装手机版phonegap，链接服务器，进行真机调试
+三、开发阶段
+	1、先写自己的页面，
+	2、在需要引入调用系统功能的地方，绑定事件即可
+四、打包apk----android
+	1、确保自己电脑有jdk----java运行环境
+		必须是1.8以上的，下载好之后，进行环境变量的配置
+			下载：	http://rj.baidu.com/soft/detail/14459.html?ald
+			配置：     http://jingyan.baidu.com/article/6dad5075d1dc40a123e36ea3.html
+	2、下载android sdk
+			下载：  http://rj.baidu.com/soft/detail/23485.html?ald
+			配置： http://blog.csdn.net/dr_neo/article/details/49870587
+			
+	3、cordova 6.4版本以后打包需要用到 gradle
+			下载gradle:  Gradle:https://gradle.org/releases     选择4.0.2  complete
+				下载时不要使用浏览器下载。，很慢，可以使用迅雷下载器下载
+			解压，放置的位置自己定；
+			配置环境变量：系统变量--Path--编辑：
+						放的是bin目录
+	4、项目根目录下打开cmd
+		cnpm install cordova -g
+		
+		cordova platform add android  
+			成功之后会在platforms文件夹下多一个android文件夹
+		
+		cordova build android
+			打包android的apk文件
+			存放目录  platforms/android/build/outputs/apk		

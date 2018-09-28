@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model="search" /><br />
+			<ul>
+				<li v-for = "item in newList">{{item}}</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var wv = new Vue({
+		  el:"#app",
+		  data:{
+		  	search:"",
+		  	list:["apple","banana","orange","lemon","pear"]
+		  },
+		  methods:{
+		  	
+		  },
+		  computed:{
+		  	newList:function(){
+		  		var arr = [];
+		  		var that = this;
+		  		this.list.forEach(function(item){
+		  			if(item.indexOf(that.search) != -1){
+		  				arr.push(item)
+		  			}
+		  		})
+		  		return arr;
+		  	}
+		  }
+		})
+		
+	</script>
+</html>

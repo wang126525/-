@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model="msg"/><br />
+			{{msg}}<br />
+			{{msg.split("").reverse().join("")}}<br />
+			<button @click="getInfo($event)" :data-msg="msg">翻转字符串</button>
+			<br />
+			{{newMsg}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * 计算属性
+		 * 	一开始就触发，当值发生改变，会跟着改变
+		 * 	必须被computed包裹
+		 * 	key:function(){
+		 * 		return value;
+		 * }  ----- 給初始化的变量添加了新的值，但是这个值是根据data中的值来了
+		 * 		直接在html结构中通过 {{key}}得到想要的值
+		 * 	
+		 */
+		var wv = new Vue({
+		  el:"#app",
+		  data:{
+		  	msg:"vue比react更棒" ,
+		  	num:100
+		  },
+		  methods:{
+		  	getInfo(event){
+		  		console.log(event.target.getAttribute("data-msg"));
+		  	},
+		  	reverseMsg(){
+		  		this.msg = this.msg.split("").reverse().join("");
+		  	}
+		  },
+			computed:{
+		  	newMsg:function(){
+		  		return this.msg.split("").reverse().join("");
+		  	}
+		  }
+		})
+		
+	</script>
+</html>

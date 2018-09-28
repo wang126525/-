@@ -1,0 +1,6 @@
+一、只能竖屏使用
+	plus.screen.lockOrientation('portrait-primary');
+	横屏
+	plus.screen.lockOrientation("landscape-primary");
+二、全屏
+	plus.navigator.setFullscreen(true);

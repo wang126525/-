@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    * {
+        padding: 0px;
+        margin: 0px;
+    }
+    
+    #plane {
+        width: 320px;
+        height: 568px;
+        background: url(img/background.png);
+        margin:50px auto 0px;
+        position: relative;
+        overflow: hidden;
+        cursor: none;//去掉鼠标箭头
+
+    }
+    #plane span{
+    	position: absolute;
+    	right:10px;
+    	top:5px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="plane">
+    	<span>分数：<strong style="font-weight: normal;">0</strong></span>
+    </div>
+    <script type="text/javascript" src="plane.js"></script>
+</body>
+
+</html>

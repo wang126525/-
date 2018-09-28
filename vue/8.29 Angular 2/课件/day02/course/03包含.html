@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/fetch-jsonp/1.1.1/fetch-jsonp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  <button ng-click = "changeType('a.html')">a页面</button>
+	  <button ng-click = "changeType('b.html')">b页面</button>
+	  <div ng-include = "'test.html'"></div>
+	   <div ng-include = "type"></div>
+	</body>
+	<script src="module/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="service/myAjax.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+      app.controller("myCtrl",function($scope){
+        $scope.type = "a.html";
+        $scope.changeType = function(type){
+          $scope.type = type;
+        }
+      });
+	</script>
+</html>

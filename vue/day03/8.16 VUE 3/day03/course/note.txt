@@ -1,0 +1,425 @@
+十二、父子组件
+	<template id="header">
+		<div>
+			<h2>我是头部组件11</h2>
+			<br/>
+			<hr/>
+			<v-nav></v-nav>
+		</div>
+	</template>
+	<template id="nav">
+		<div>
+			<h2>我是Nav组件</h2>
+		</div>
+	</template>
+	components:{
+		'v-header':{
+			template:'#header',
+			components:{   /*组件里面嵌套组件*/
+				'v-nav':{
+					template:'#nav',
+				}
+			}
+		}
+	}
+十三、父子组件传值--props
+	<!--父亲组件给子组件传数据-->---header
+	<v-nav :msg="msg" :n="name"></v-nav>
+	nav--
+	<template id="nav">
+		<div>
+			<h2>我是Nav组件-----{{msg}}--{{n}}</h2>
+		</div>
+	</template>
+	components:{
+		'v-header':{
+			template:'#header',
+			data:function(){
+				return{
+					msg:'header组件的数据',
+					name:'我是父亲组件的name'
+				}
+			},
+			components:{
+				'v-nav':{
+					props:['msg','n'],  /*子组件接收数据*/
+					template:'#nav'
+				}
+			}
+		}
+	}
+	
+	
+	总结：使用子组件的地方绑定一个属性 a,值为b  :a = "b",
+		定义子组件的时候添加一个选项props   props:["a"]
+		这样就可以在子组件中通过{{a}}就相当于访问了父组件传递的值
+十四、父子组件传值--props--验证
+	<!--父亲组件给子组件传数据-->
+	<v-nav :msg="msg" :num="num" :my-num="aa"></v-nav>
+	//v-header组件中的初始数据
+	data:function(){
+		return{
+			msg:'header组件的数据',
+			//num:10
+			num:'这是一个num类型',
+			aa:10
+		}
+	},
+	、、子组件
+	'v-nav':{
+		//props:['msg','n'],  /*子组件接收数据*/
+		template:'#nav'
+	}
+	//将子组件中的props进行验证
+	props:{
+		msg:String,   /*msg必须是 字符串类型*/
+		num:Number,
+		//myNum:Number
+		myNum:{    /*驼峰方式接收数据     传值的时候要注意  my-num*/
+			type:Number,
+			default:101
+		}
+
+	},
+	
+	总结：
+		如果父组件传值于子组件的方式为   a-bc = "d"
+		那么在子组件定义是为  props:["aBc"] ,使用时为 {{aBc}}
+十五、子组件給父组件传值
+	<template id="header">
+		<div>
+			<h2>我是头部组件---{{msg}}--{{a}}</h2>
+			<br/>
+			<hr/>
+			<v-nav :m="msg" @to-parent="getChildData"></v-nav>
+		</div>
+	</template>
+	<template id="nav">
+		<div>
+			<h2>我是Nav组件--{{m}}</h2>
+			<br/>
+			<br/>
+			<button @click="send()">这是nav组件的button，点击给父组件传值</button>
+		</div>
+	</template>
+	components:{
+			'v-header':{
+				template:'#header',
+				data:function(){
+					return {
+						msg:'这是父亲组件的数据',
+						a:''
+					}
+				},methods:{
+					getChildData:function(msg){  //data就是子组件广播过来的数据
+							//alert(msg);
+						this.a=msg;
+					}
+				},
+				components:{
+					'v-nav':{
+						props:['m'],
+						template:'#nav',
+						data:function(){
+							return {
+								msg:'这是子组件的数据1111'
+							}
+						},
+						methods:{
+							send:function(){
+								//	$emit
+								//alert('111');
+								//this.msg  就是data里面的msg
+								this.$emit('to-parent',this.msg);  /*1.子组件给父亲组件广播数据*/
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		总结
+			子组件通过this.$emit("信号"，值)
+			父组件中调用子组件时   @信号 = "父组件的方法"  ,方法不加括号
+			父组件方法（msg）{
+				msg就为子组件传递过来的数据
+			}
+十六、非父子组件传值，使用监听 ---- 广播+监听
+ 		<v-a></v-a>
+        <v-b></v-b>
+        <v-c></v-c>
+	//定义一个空的实例对象
+    var Event=new Vue();
+    var A={
+        template:'#a',
+        data:function(){
+            return {
+                msg:'这是a组件的数据'
+            }
+        },
+        methods:{
+            send(){
+                Event.$emit('aSend',this.msg);  /*广播数据*/
+            }
+        }
+    };
+      var B={
+            template:'#b',
+            data:function(){
+                return {
+                    msg:'这是B组件的数据11'
+                }
+            },
+            methods:{
+                send:function(){
+                    Event.$emit('bSend',this.msg);  /*广播数据*/
+                }
+            }
+        }
+        var C={
+            template:'#c',
+            data:function(){
+                return {
+                    m:'',
+                    b:''
+                }
+            },
+            mounted:function(){
+                /*接收广播*/
+                var _that=this;
+                Event.$on('aSend',function(msg){
+                    _that.m=msg;
+                });
+                Event.$on('bSend',function(msg){
+                    _that.b=msg;
+                })
+            }
+        }
+	 new Vue({
+            el:'#box',
+            data:{
+                msg:'this is vue'
+            },
+            components:{
+                'v-a':A,
+                'v-b':B,
+                'v-c':C
+            }
+        });
+十七、动态组件
+	<div id="box">
+		{{msg}}
+		<button @click="a='aaa'">aaa组件</button>
+		<button @click="a='bbb'">bbb组件</button>
+		<component :is="a"></component>
+	</div>
+	<template id="aaa">
+		<div>
+			<h2>这是aa组件的标题</h2>
+			<p @click="run">这是aa组件的内容</p>
+		</div>
+	</template>
+	var vm=new Vue({
+			el:'#box',
+			data:{
+				msg:'this is a vue',
+				a:'bbb'
+			},
+			components:{
+				'aaa':{
+					template:'#aaa',
+					methods:{
+						run:function(){
+							alert('这是aaa组件');
+						}
+					}
+				},
+				'bbb':{
+
+					template:'<div>这是bbb组件</div>'
+				}
+			}
+		});
+一、父亲组件直接通过ref  $refs访问子组件的所有数据和方法
+	第一步、使用组件
+		<div id="box">
+		    <v-header>
+		    </v-header>
+		</div>
+	第二步、定义组件模板
+		<template id="header">
+		    <div>
+		        <h2 @click="getChild">我是头部组件</h2>
+		        <!--父亲组件给子组件传数据的标识，在父组件中通过this.$refs.myNav.run();执行子组件中的run方法-->
+		        <v-nav ref="myNav"></v-nav>
+		    </div>
+		</template>
+		<template id="nav">
+		    <div>
+		        <h2>我是Nav组件</h2>
+		    </div>
+		</template>
+	第三步：注册组件
+		components:{
+            'v-header':{
+                template:'#header',
+                data:function(){
+                    return {
+                        msg:'父组件的msg'
+                    }
+                },methods:{
+                  getChild:function(){
+                        this.$refs.myNav.run();   /*执行子组件的方法*/
+                        alert(this.$refs.myNav.name);   /*获取子组件的数据*/
+                  }
+                },
+                components:{
+                    'v-nav':{
+                        template:'#nav',
+                        data:function(){
+                            return {
+                                msg:'这是子组件里面的数据',
+                                name:'张三'
+                            }
+                        },methods:{
+                            run:function(){
+                                alert('子组件run方法');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+二、子组件通过this.$parent访问父组件的所有数据和方法
+	第一步、使用组件
+		<div id="box">
+		    <v-header>
+		    </v-header>
+		</div>
+	第二步、定义组件
+		<template id="header">
+		    <div>
+		        <h2 @click="getChild">我是头部组件</h2>
+		        <!--父亲组件给子组件传数据-->
+		        <v-nav ref="myNav"></v-nav>
+		    </div>
+		</template>
+		<template id="nav">
+		    <div>
+		        <h2>我是Nav组件</h2>
+		        <button @click="getParent">获取父组件的方法和数据</button>
+		    </div>
+		</template>
+	第三步、注册组件
+		components:{
+            'v-header':{
+                template:'#header',
+                data:function(){
+                    return {
+                        msg:'父组件的msg111'
+                    }
+                },methods:{
+                    getChild:function(){
+                        this.$refs.myNav.run();   /*执行子组件的方法*/
+                        alert(this.$refs.myNav.name);   /*获取子组件的数据*/
+                    },run:function(){
+                        alert('这是父亲组件的run方法');
+                    }
+                },
+                components:{
+                    'v-nav':{
+                        template:'#nav',
+                        data:function(){
+                            return {
+                                msg:'这是子组件里面的数据',
+                                name:'张三'
+                            }
+                        },methods:{
+                            run:function(){
+                                alert('子组件run方法');
+                            },getParent:function(){/*获取父组件的内容*/
+                                //alert('1111');
+                                alert(this.$parent.msg);   /*获取父亲组件的数据*/
+                                this.$parent.run();   /*获取父组件的方法*/
+                            }
+                        }
+                    }
+                }
+            }
+        }
+三、slot分发内容
+	用来分发内容
+		自定义组件在使用时，默认情况下内部写内容不会显示，如果需要显示，则可以通过給定义组件模板的时候添加一个标签slot
+
+		如果需要在不同的地方显示不同的分发内容，则可以在使用组件的时候给内容添加一个属性slot="test1"
+		在组件定义模板的地方添加一个属性name   name="test1"
+			将使用组件时自己找自己该显示的地方
+			
+	假如有如下的需求
+	需要在aaa组件中添加一段代码，需要使用到slot分发内容，在定义组件的时候可以写一个slot内容区域
+	 	<aaa>
+			<ul>
+				<li>1111</li>
+				<li>2222</li>
+				<li>3333</li>
+			</ul>
+		</aaa> 
+		<template id="aaa">
+			<div>
+				<h1>这是一个aa组件</h1>
+				<slot>
+					这是默认情况下的内容
+				</slot>
+				<h1>这是底部</h1>
+			</div>
+		</template>
+		components:{
+			'aaa':{
+				template:'#aaa'
+			}
+		}
+		
+		拓展：加入在div#app中的组件aaa中传入了不同的数据，则需要使用slot属性定义一个名字，然后在模板中添加一个name属性
+			<aaa>
+				<ul slot="ul-slot">
+					<li>ul1111</li>
+					<li>ul2222</li>
+					<li>ul3333</li>
+				</ul>
+				<ol slot="ol-slot">
+					<li>ol1111</li>
+					<li>ol2222</li>
+					<li>ol3333</li>
+				</ol>
+			</aaa>
+			<template id="aaa">
+				<div>
+					<h1>这是一个aa组件</h1>
+					<slot name="ul-slot">
+						这是默认情况下的内容
+					</slot>
+					<h1>这是底部</h1>
+					<slot name="ol-slot">
+						这是默认情况下的内容
+					</slot>
+				</div>
+			</template>
+四、refs获取dom元素
+	给一个元素添加一个ref属性，则可以在生命周期函数mounted中通过this.$refs.oDiv获取，也可以更改字体的样式
+	  	<div style="color:red" ref="oDiv">
+			我是一个div元素
+	    </div>  
+	    mounted:function(){
+            console.log(this.$refs.oDiv);
+            this.$refs.oDiv.style.color='blue';
+        }  
+五、Vue.$nextTick 获取更新后的 DOM
+	第一步、在mounted的时候更改{{message的值}}
+	第二步、通过給div添加ref属性，然后在mounted中获取值  this.$refs.oDiv.textContent   发现值还是原来的
+	第三步、添加一个 $nextTick函数，重新获取值，注意this指向的问题
+	 	/*nextTick里面的代码会在DOM更新后执行*/
+        this.$nextTick(function(){
+            /*数据改变后的dom*/
+            console.log(this.$refs.oDiv.textContent);
+        }.bind(this))
+	使用场景：联动的效果、美团中的分类里面   点击全部，点击左侧的选项，右侧如果有数据更新，且内容过多需要使用一些插件的时候，需要重新获取Dom

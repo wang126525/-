@@ -1,0 +1,31 @@
+#addcontent{
+    width: 100%;height: 100%;
+    .dizhi{
+        width: 100%;height: 44px;
+        background: #f66;color: #fff;
+        text-align: center;
+        line-height: 44px;
+        font-size: 12px;
+        position: fixed;
+        bottom: 0px;left: 0px;
+    }
+    .wo{
+        width: 90%;height: 44px;margin-left: 5%;
+        ul{
+            width: 100%;font-size: 12px;
+            li{
+                width: 100%;height: 44px;border-bottom: 1px solid #EEEEEE;
+                .left{
+                    width: 50%;float: left;
+                    p{
+                        width: 100%;height: 50%;
+                        line-height: 22px;
+                    }
+                }
+                .phone{
+                    float: right;line-height: 44px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,77 @@
+一、什么是混合开发
+	hybrid app
+		混合开发是原生+H5的开发  ---- 
+	native app   
+		使用原生语言开发的app
+			android             -----  java    ----  apk   ***
+			ios                ----- OC,swift  ----  ipa   ***
+			window phone      	----  c#
+						   wp7 wp8  ---------------  xap
+							wp8.1以后  ------------   appx  ***
+	webapp
+		H5+js+css开发的app  ---- 手机端的网站
+
+二、混合开发怎么样
+	优点：
+		1、一次编译，多平台运行 --- android、ios
+		2、开发速度快，不需要了解各个平台的native开发语言也可以开发轻量级移动应用
+		3、各平台UI表现一致
+			web应用要让绝对多数浏览器都可以使用，而且要降低各个浏览器之间的兼容----UI的一致性
+		
+	开发人员的痛：
+		原生：屏幕的适配 --- 图片
+		js开发：调用系统的接口---摄像头（二维码扫描、拍照）、地理定位、传感器（光线传感器）
+		
+			H5来搞适配，原生来搞调用系统的接口-----有个桥梁链接 ----- webview
+			
+			webview
+			  浏览器
+			  	原生语言自带的一个组件 --- html的一个标签一样
+			  	js运行于浏览器
+	缺点：
+	
+
+三、创建一个android应用
+	app
+		build
+		
+		libs
+		
+		src
+			androidTest
+			
+			main
+				java   ---    逻辑程序----类似于前端中的js
+					com.example.asus.zz1703
+						应用标识、应用包名 --- packageName --- 唯一性，有则覆盖，无则下载安装
+							店外卖（状态及时提醒用户）。
+							qq中有人给你发送消息，提示框 ---- 依据应用包名
+							应用升级    --- 应用下载 ----应用升级
+						MainActivity.java   --- 相当于js文件
+				res    ---    布局文件，静态资源文件--- 类似于前端中的html，css，image
+					drawable
+					layout  --- 布局文件
+						activity_main.xml  --- 布局
+					***hdpi --- 各分辨率的图片
+					values  --- 参数别名定义
+				AndroidManifest.xml  ---  android配置文件  ---- 权限
+			test
+四、真正android与H5合作开发
+	1、給android用户提供一个接口（可以有参数）
+	 	function test(){     //------没有参数--当android调用时触发执行
+	        alert("@2222222222222222");
+	    }
+		function testParams(str){//当android传递参数给你的时候，执行
+	        msg.innerHTML = str;
+	        img.src = str;
+	    }
+	2、向android工程师要你要调用功能的  对象  和 方法
+		/**
+		 * WebViewTakePhoto 对象下有一个方法takePhoto
+		 WebViewFunc有两个方法
+		 	testToast（）  无参数
+		 	toAndroid（） 有参数
+		 */
+		window.WebViewTakePhoto.takePhoto();
+		window.WebViewFunc.testToast();
+		window.WebViewFunc.toAndroid("11111111111111111111111111111111111111111");

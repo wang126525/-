@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<button v-bind:data-msg = "msg" @click="getInfo($event)">绑定属性</button>
+			<button :data-msg = "msg">绑定属性</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * 事件对象
+		 * 	事件调用的地方传入$event
+		 * 	@click="getInfo($event)"
+		 */
+		var wv = new Vue({
+		  el:"#app",
+		  data:{
+		  	msg:"<h1>vue比react更棒</h1>" 
+		  },
+		  methods:{
+		  	getInfo(event){
+		  		console.log(event.target.getAttribute("data-msg"))
+		  	}
+		  }
+		})
+		
+	</script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  	{{ msg }}
+	  	<br />
+      {{ msg1 }}
+	</body>
+	<script>
+	  /*
+	   * mvc
+	   *   module
+	   *   view
+	   *   controller
+	   * 根节点设置ng-app指令   ng-app = "app"
+	   * 需要的地方设置指令  ng-controller     ng-controller = "myCtrl"
+	   *   可以设置多个
+	   * 
+	   * 定义初始的变量，类似于react中的this.state = {} vue中的data
+	   *   所有的变量都挂载在一个对象上面  ----  $scope
+	   *     $scope.msg = "angularjs  "
+	   * 
+	   * */
+	  var app = angular.module("app",[]); //M
+	  
+	  //C
+	  //参数不可以更改
+	  app.controller("myCtrl",function($scope){
+	    $scope.msg = "hello angularjs";//设置变量    访问通过 {{msg}}即可
+	    $scope.msg1 = "hello angularjs1";//设置变量    访问通过 {{msg}}即可
+	  });
+//	  app.controller("myCtrl1",function($scope){
+//    $scope.msg1 = "hello angularjs1";//设置变量    访问通过 {{msg}}即可
+//  });
+	</script>
+</html>

@@ -1,0 +1,60 @@
+一、react简介
+二、react环境搭建
+	1）、拷贝webpack.config.js和package.json文件
+	2）、cnpm i
+		cnpm i react --save
+		cnpm i react-dom --save
+	3)、创建index.html文件
+		div#app
+		script.src="bundle.js"
+	4)、创建一个app.jsx ---- 入口文件 ---- app.jsx
+	5)、cnpm i jsx-loader
+		webpack.config.js
+			{
+	            test: /\.jsx$/,
+	            exclude: /node_modules/,
+	            loader: 'jsx-loader'
+	        },
+	6）、cnpm run dev
+三、注意事项
+	class --- className
+	onclick ---- onClick
+	
+	注释语句
+		{}包裹被注释的语句
+			行内注释 //
+			块级注释 /**/
+	
+	事件处理
+		onClick = {this.handler}
+		
+	属性  --- 用来组件之间传值
+		prop
+	
+	状态 ---  组件内部自己使用
+		state   
+			getInitialState  --  定义初始的状态  ----- 定义的变量
+			
+			修改状态
+				this.setState({
+				})
+	
+	ref:获取DOM节点 ref="test"
+		this.refs.test   --    document.getElementById("test")
+	
+	循环的使用
+		先将原来的数据取出来，然后通过push方法将新的数据添加进去
+		将新的数据通过this.setState（）进行更新，只要一更，就会引起render函数的的二次渲染
+			var data = this.state.userList;
+			var len = data.length;
+			var arr = [];
+			for(var i = 0; i < len; i++){
+				arr.push(<li key={i}>{data[i].username}------{data[i].password}</li>)
+			}
+		最后在需要的地方 通过{arr}来使用
+			用户列表为:
+				<ul>
+					{arr}
+				</ul>
+						
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+	<div class="game-box">
+        <div class="score-title">
+            <div class="number">
+                <li class=" blue"></li>* <span>0</span>
+            </div>
+            <div class="score">得分：<span>0</span></div>
+        </div>
+
+        <div class="daglog"></div>
+    </div>
+    <div class="button-box">
+        <div class="start">开始</div>
+        <div class="pause">暂停</div>
+    </div>
+    <script src="js/common.js"></script>
+
+	<script src="js/game.js"></script>
+	<script>
+        new BrickGame();
+	</script>
+</body>
+</html>

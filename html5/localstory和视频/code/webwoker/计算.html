@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			span {
+				padding: 10px;
+			}
+		</style>
+	</head>
+	<body>
+	</body>
+	<script src="jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var arr = [];
+		for (var i = 0; i < 1000000; i++) {
+			arr.push(parseInt(Math.random() * 100));
+		}
+		console.log(arr)
+		var str = '';
+		for (var i = 0, len = arr.length; i < len; i++) {
+			if (parseInt(arr[i]) % 3 == 0) {
+				if (str != '') str += ';';
+					str += arr[i];
+			}
+		}
+		console.log(str)
+		var arr1 = str.split(';');
+		console.log(arr1)
+					for(var i = 0, len = arr1.length; i < len; i++) {
+						var dom = $('<span>' + arr1[i] + '</span>');
+						$('body').append(dom);
+					}
+		alert(1)
+	</script>
+</html>

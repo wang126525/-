@@ -1,0 +1,91 @@
+一. Redux简介  --- flux
+	Redux是什么以及Redux设计和使用的三大原则
+	Redux核心API
+	与React绑定和增强Flux的功能
+二、Redux是什么
+	Redux对于JavaScript应用而言是一个可预测状态的容器。换言之，它是一个应用数据流框架，而不是传统的像underscore.js或者AngularJs那样的库或者框架。
+	Redux最主要是用作应用状态的管理。简言之，Redux用一个单独的常量状态树（对象）保存这一整个应用的状态，这个对象不能直接被改变。当一些数据变化了，一个新的对象就会被创建（使用actions和reducers）。
+三、设计和使用的三大原则
+	state 以单一对象存储在 store 对象中
+	state 只读
+	使用纯函数 reducer 执行 state 更新
+四、Redux工作流程
+	如图redux.png
+五、Redux核心API
+	引入必要组件：
+	import { createStore, combineReducers  } from 'redux';
+	生成store：
+	const store = createStore(reducer,  state初始状态[可选]);
+	取得当前时刻的state：
+	const state = store.getState();
+	发出action
+	store.dispatch({
+	  type: 'ADD_TODO',
+	  payload: 'Learn Redux'
+	});
+	设置监听函数：
+	store.subscribe(callback);
+六、Redux核心API-reducer
+	Reducer 函数最重要的特征是，它是一个纯函数。也就是说，只要是同样的输入，必定得到同样的输出。
+	约束：
+	不得改写参数
+	不能调用系统 I/O 的API
+	不能调用Date.now()或者Math.random()等不纯的方法，因为每次会得到不一样的结果
+	
+	Reducer 函数里面不能改变 State，必须返回一个全新的对象，请参考下面的写法。
+
+	// State 是一个对象
+	function reducer(state, action) {
+	  return Object.assign({}, state, { thingToChange });
+	  // 或者
+	  return { ...state, ...newState };
+	}
+	
+	// State 是一个数组
+	function reducer(state, action) {
+	  return [...state, newItem];
+	}
+	
+	Reducer写法一：
+		const chatReducer = (state = defaultState, action = {}) => {
+		  const { type, payload } = action;
+		  switch (type) {
+		    case ADD_CHAT:
+		      return Object.assign({}, state, {
+		        chatLog: state.chatLog.concat(payload)
+		      });
+		    case CHANGE_USERNAME:
+		      return Object.assign({}, state, {
+		        userName: payload
+		      });
+		    default: return state;
+		  }
+		};
+	Reducer写法二：
+		前提条件：如果如果不同的action所处理的属性之间没有联系，我们可以把 Reducer 函数拆分。不同的函数负责处理不同属性，最终把它们合并成一个大的 Reducer 即可。
+		const reducer = combineReducers({
+		  a: functionA,
+		  b: functionB,
+		  c: functionC
+		})
+
+		
+		
+
+
+	
+		
+
+		
+
+		
+			
+	
+	
+	
+
+	
+
+
+	
+	

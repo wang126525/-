@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.test{
+			  width: 100px;
+			  height: 100px;
+			  border: 1px solid #330033;
+			  background-color: #f66;
+			  opacity: 1;
+			  transition: all 1s;
+			}
+			.ng-hide{
+			  opacity: 0;
+			}
+			
+		</style>
+		<script src="https://cdn.bootcss.com/fetch-jsonp/1.1.1/fetch-jsonp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jslib/angular-animate.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  <input type="checkbox" ng-model="myCheck">
+	  <div class="test" ng-hide = "myCheck"></div>
+	</body>
+	<script src="module/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="service/myAjax.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+      app.controller("myCtrl",function($scope){
+        $scope.type = "a.html";
+        $scope.changeType = function(type){
+          $scope.myCheck = false;
+          
+        }
+      });
+	</script>
+</html>

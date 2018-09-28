@@ -1,0 +1,47 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html{
+	font-size: 12px;
+	font-family: 'Microsoft Yahei';
+	background: #f2f2f2;
+}
+img{
+	vertical-align: bottom;
+}
+a{
+	color: #333;
+	text-decoration: none;
+}
+#classic-demo {
+	margin: 30px auto 100px;
+	width: 1210px;
+	overflow: hidden;
+}
+.single-demo {
+	position: relative;
+	float: left;
+	width: 242px;
+	height: 242px;
+	overflow: hidden;
+}
+.single-demo img{
+	width: 242px;
+	height: 242px;
+	transition: all .2s linear;
+}
+.single-demo:hover img{
+	transform: scale(1.2);
+}
+.single-demo a{
+	position: absolute;
+	left: 0;
+	top : 242px;
+	box-sizing: border-box;
+	padding: 50px 10px;
+	width: 100%;
+	height: 100%;
+	font-size: 18px;
+	background: rgba(255, 255, 255, .5);
+}

@@ -1,0 +1,132 @@
+一、路由
+	http://www.**.com/api
+	http://www.**.com/docs
+	http://www.**.com/a
+	http://www.**.com/b
+	
+	/api    /docs   /a   /b     -------------  node服务器的路由
+	
+	****
+		每次修改完文件需要重新启动服务器，特别麻烦
+			cnpm i supervisor -g     全局安装supervisor
+			supervisor 01server.js     使用supervisor代替node命令，以后相同的一个文件不需要不断的重启----热替换（watch）
+	****
+		
+	1、搭建基本的服务器
+	2、输出用户地址栏输入的地址
+		console.log(req.url)
+			---- 每一个都有两个请求
+	3、过滤请求
+		if(req.url !== "/favicon.ico"){
+			//继续操作
+		}
+	4、去/  第一个url代表的是url模块
+		var pathname = url.parse(req.url).pathname.replace(/\//,"");
+	5、依据pathname的值进行想前端输出不同的信息
+		switch (pathname){
+			case "login":
+				Routes.login(res)
+				break;
+			case "register":
+				Routes.register(res)
+				break;
+			case "kind":
+				Routes.kind(res)
+				break;
+			default:
+				break;
+		}
+	6、如果把所有的路由都放在这个页面，显得太臃肿，------   模块化开发
+	7、创建一个路由模块   ---  Routes.js
+		每一个方法--键值对----键名就是pathname的值
+		module.exports = {
+			"login":function(res){
+				res.write("登录");
+				res.end();
+			},
+			"register":function(res){
+				res.write("注册");
+				res.end();
+			},
+			"kind":function(res){
+				res.write("分类");
+				res.end();
+			},
+			"other":function(res){
+				res.write("404");
+				res.end();
+			}
+		}
+	8、调用------异常处理机制 ---- try{}catch(e){}
+		try{
+			//条件成立，也就是路由中定义了pathname时
+			Routes[pathname](res);
+		}catch(e){
+			//没有条件满足时进行操作，路由中没有定义pathname时
+			Routes["other"](res);
+		}
+		
+	9、现在需要实时显示真实的页面------fs模块中的读物文件 ---- java（jsp）---- Struts、Hibernate、Spring
+	（10年的工作经验不等于1年的工作经验用了10年）----广度、深度
+	高内聚-低耦合
+		fs.readFile("path","utf-8",(err,data) => {if(err){}else{
+			res.write(data)     //当访问该路由的时候，实际显示的就是你写的那个html页面
+		}})
+	10、此处需要使用一个封装的模块----文件读取模块--- Tools.js
+	11、Tool.js
+			var fs = require("fs");//*******切记一定要加
+			module.exports = {
+				readHtml:function(res,urlStr){
+					console.log("readHTml")
+					fs.readFile(urlStr,"utf-8",(err,data) => {
+						if(err){
+							console.log(err)
+						}else{
+							console.log(data)
+							res.write(data);
+							res.end();
+						}
+					})
+				}
+			}
+	12、登录注册----页面中提交的信息后台如何获取
+		数据提交方式
+			--- get
+				<form method="get" action="/login"></form>
+				var str = url.parse(req.url).query;
+				//用来获取用户的信息
+				var obj = url.parse(req.url,true).query;
+				//判断有没有用户信息，如果有则打印，没有则输出aaaa
+					str是不是等于null
+				不管怎么样，一定要注意调用
+					Tool.readHtml(res,"./views/login.html");
+			--- post
+				 formPost :function(req){
+				 	var str = "";
+				 	req.on("data",(data) => {
+				 		str += data;
+				 	})
+				 	req.on("end",() => {
+				 		
+				 		if(str == ""){
+				 			console.log("bbbbbb")
+				 		}else{
+				 			var obj = querystring.parse(str);
+				 			console.log("用户名为" + obj.userName);
+							console.log("密码为" + obj.pwd);
+				 		}
+				 	})
+				 }
+作业：
+1、练习路由
+2、实现登录注册，get/post
+3、安装mongodb
+	1.MongoDB下载地址：下载对应的版本 
+		https://www.mongodb.org/    =>download=>window=>download 
+		
+	2.安装 
+	按默认或选择安装位置一步步到头 
+	 
+	3.安装robomongo图形化工具 
+	   下载地址：http://www.softpedia.com/get/Internet/Servers/Database-Utils/Robomongo.shtml#download 
+	    安装后点create,在mongodb打开的情况下连接即可显示数据库 

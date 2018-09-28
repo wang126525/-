@@ -1,0 +1,49 @@
+什么是混合开发----hybrid app
+	使用原生（native）+ html5开发
+		原生系统				开发语言				打包完名称后缀
+		ios					OC、swift			.ipa
+		android				java				.apk
+		windows phone		C#					wp7 wp8的是xap
+												wp8.1以后用8.1的sdk开发的是appx
+	hybrid app/webapp/native app	
+	垃圾回收机制----android手机卡顿，ios则一定程度上不卡
+	
+	hybrid app:搞活动---策划---推广---显示到APP展示---IOS---提交更改后的代码到APPsTORE---审核---通过---活动才能被用户知道---如果审核不通过。以上步骤重来一次---活动时间结束了，你的APP还没更新-------------------------混合开发（内容更新不需要内容审查）
+
+混合开发的优点
+	1、一次编译，多平台运行		
+	2、开发速度快。无需了解native开发语言也可进行
+	3、各平台UI保持一致
+		
+		点：
+			native ：屏幕适配
+			HTML5： 调用系统硬件	
+	4、内容更新不需要内容审查---就是前端页面取自服务器。只要服务器更新即可
+
+缺点
+	1、体验不如nativeapp，随着技术的越来越先进，这种区别已经可以说不存在了（$("#box") ---- doucument.getElementById("box")）	
+	2、代码容易被盗取
+
+使用规则：无规则、任何时候都可以引入
+
+java   ----- eclipse   myeclipse   intellig
+
+js    ----- hbuilder（基于eclipse（Dcloud））
+
+
+常用产品
+	*原生+html5
+	*Phonegap
+	WeX5
+	*Dcloud
+	Apicloud
+	Appcan
+	Monaca
+	Applican	
+	*微信--jssdk		
+	
+原生+html5开发
+	一、开发环境的配置
+		配置参照		android+js.docx
+	二、面向对象三大特征
+		继承、封装、多态			

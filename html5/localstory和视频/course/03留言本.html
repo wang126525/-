@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<fieldset id="">
+			<legend>留言本</legend>
+			<input type="text" name="note" id="note" value="" placeholder="请输入你需要保存的信息" />
+			
+			<input type="button" name="saveBtn" id="saveBtn" value="保存数据" />
+			<input type="button" name="queryBtn" id="queryBtn" value="查询数据" />
+			<input type="button" name="clearBtn" id="clearBtn" value="初始化数据" />
+			
+			<table border="" cellspacing="" cellpadding="" id="list">
+				<!--<tr><th>信息</th><th>时间</th><th>操作</th></tr>-->
+				<!--<tr><td>dasdasd</td><td>2017/7/18 11:08</td></tr>-->
+			</table>
+		</fieldset>
+	</body>
+	<script type="text/javascript">
+		function $(id){
+			return document.querySelector(id);
+		}
+		
+		var note = $("#note");
+		var saveBtn = $("#saveBtn");
+		var queryBtn = $("#queryBtn");
+		var clearBtn = $("#clearBtn");
+		var list = $("#list");
+		queryData();
+		saveBtn.onclick = function(){
+			var val = note.value;
+			var date = new Date();
+			var str = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+			console.log(str);
+			localStorage.setItem(str,val);
+			note.value = "";
+			queryData();
+		}
+		queryBtn.onclick = function(){
+			queryData()
+		}
+		clearBtn.onclick = function(){
+			localStorage.clear();
+			queryData()
+		}
+		function queryData(){
+			var len = localStorage.length;
+			if(len == 0){
+				list.innerHTML = "没有数据";
+				return ;
+			}
+			list.innerHTML = '<tr><th>信息</th><th>时间</th><th>操作</th></tr>';
+			for(var i = 0; i < len; i++){
+				var key = localStorage.key(i);
+				var value = localStorage.getItem(key);
+				
+				list.innerHTML += '<tr><td>'+value+'</td><td>'+key+'</td><td onclick="deleteItem('+i+')">删除</td></tr>'
+			}
+		}
+		
+		function deleteItem(i){
+			console.log(i);
+			var key = localStorage.key(i);
+			localStorage.removeItem(key);
+			queryData();
+		}
+	</script>
+</html>

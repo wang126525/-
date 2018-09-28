@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		　//1.字面量。
+		 /*var clock={
+		  hour:12,
+		  minute:10,
+		  second:10,
+		  showTime:function(){
+		   console.log(this.hour+":"+this.minute+":"+this.second);
+		  }
+		 }
+		 clock.showTime();//调用方法
+		 console.log(clock.second)//调用属性
+		
+		//2.创建Object实例
+		 var clock = new Object();
+		 clock.hour=12;
+		 clock.minute=10;
+		 clock.showHour=function(){
+		 	console.log(clock.hour);
+		 };
+		 clock.showHour();//调用方法
+		 console.log(clock.minute)//调用属性*/
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		//1.工厂模式  放入参数，返回对象，流水线工作(在函数内创建一个对象，给对象赋予属性及方法再将对象返回即可。)
+		/*function carts(name,money,color){
+			var cart = new Object();
+			cart.name=name;
+			cart.money=money;
+			cart.color=color;
+			cart.show=function(){
+				console.log('这是我的'+this.name+",花了我"+this.money+"美元,是我"+this.color);
+			};
+				return cart;
+		};
+		var newcart = carts('宝马','30万','蓝色');//实例化
+		newcart.show();//调用
+		console.log(newcart.money)*/
+		
+		
+		
+		
+		
+		
+		//2.构造函数模式    所谓"构造函数"，其实就是一个普通函数，但是内部使用了this变量。对构造函数使用new运算符，就能生成实例，并且this变量会绑定在实例对象上。
+		/*function team(name,player){
+			this.name=name,
+			this.player=player,
+			this.like=function(){
+				console.log('我最喜欢的球队是'+this.name+',其中最喜欢的球员是'+this.player)
+			}
+		}
+		var newLike=new team('骑士','詹姆斯')//new必须使用，否则team就不会当成构造函数调用，而只是一个普通的函数
+		newLike.like()*/
+		
+		
+		
+		
+		
+		
+		//3.原型模式  1
+		/*function cart(name,color){
+		}
+		cart.prototype.name='bob';
+		cart.prototype.color='黑色';
+		cart.prototype.eat=function(){
+			console.log('我是一只'+this.color+'小猫,我叫'+this.name+'我爱吃鱼')
+		}
+		var blackcart=new cart()
+		//改变变量
+		blackcart.name='jack',
+		blackcart.color='白色'
+		blackcart.eat()*/
+		//原型模式  2
+		/*function cart(name,color){
+		}
+		cart.prototype={
+			constructor:cart,
+			name:'jim',
+			color:'白色',
+			eat:function(){
+				console.log('我是一只'+this.color+'小猫,我叫'+this.name+'我爱吃鱼')
+			}
+		}
+		var carts=new cart()
+		//改变变量
+		carts.name='jack',
+		carts.color='黑色'
+		carts.eat()*/
+		//原型模式上半部分与构造函数模式一样，只是后面用到了prototyp属性（每个构造函数自带的属性，它指向另一个对象。这个对象的所有属性和方法，都会被构造函数的实例继承。
+		
+		
+		
+		
+		
+		//4.混合构造函数原型模式(上半部分是构造函数，下半部分是原型模式)
+		/*function teams(name,player){
+			this.name=name,
+			this.player=player
+		}
+		teams.prototype.like=function(){
+			console.log('我最喜欢的球队是'+this.name+',其中最喜欢的球员是'+this.player)
+		}
+		var Team=new teams('湖人','科比')
+		Team.like()*/
+		
+		
+		
+		
+		
+		
+		//5.动态原型模式(把构造函数模式与原型模式结合，所有信息都封装在了构造函数中，即在构造函数中初始化原型：)
+		/*function Preson(name,age){
+			this.name=name;
+			this.age=age;
+			if(typeof this.say!='function'){
+				console.log('只执行一次')
+				Preson.prototype.say=function(){
+					console.log('我叫'+this.name+',我今年'+this.age+'岁')
+				}
+			}
+			
+		}
+		var preson1=new Preson('小明','18')
+		var	preson2=new Preson('小强','16')
+		preson1.say()
+		preson2.say()*/
+	</script>
+</html>

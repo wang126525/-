@@ -1,0 +1,9 @@
+<h1>这里是测试组件的内容{{msg}}</h1>
+<button (click) = "test()">点击事件</button>
+<ul>
+	<li *ngFor = "let item of list">{{item }}</li>
+</ul>
+
+<ul *ngIf = "isOk">
+  <li *ngFor = "let item of users">{{item.name }}</li>
+</ul>

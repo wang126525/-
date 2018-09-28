@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  {{msg}}
+	  <span ng-bind = "msg"></span>
+	  <div class="container">
+	    <form class="form-inline ">
+      <div class="form-group">
+        <label for="username">用户名</label>
+        <input type="text" class="form-control" id="username" ng-model="username" placeholder="用户名">
+      </div>
+      <div class="form-group">
+        <label for="password">密码</label>
+        <input type="password" class="form-control" id="password" ng-model = "password" placeholder="密码">
+      </div>
+      <button type="button" class="btn btn-success" ng-click = "addItem(username,password)">添加</button>
+    </form>
+    
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>用户名</th>
+          <th>密码</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-hide="isOk" >
+          <td colspan="4">暂无数据</td>
+        </tr>
+        <tr ng-show="isOk" ng-repeat = "item in list">
+          <th scope="row">{{$index + 1}}</th>
+          <td>{{item.username}}</td>
+          <td>{{item.password}}</td>
+          <td> <button type="button" class="btn btn-danger" ng-click = "removeItem($index)">删除</button></td>
+        </tr>
+      </tbody>
+    </table>
+    
+	  </div>
+  	
+	</body>
+	<script>
+	  /*
+	   * ng-model
+	   *   数据的双向绑定
+	   *   
+	   * */
+	  var app = angular.module("app",[]); //M
+	  
+	  //C
+	  //参数不可以更改
+	  app.controller("myCtrl",function($scope){
+	    $scope.msg = "<h1>测试一下</h1>";
+	    $scope.isOk = false;
+	    $scope.list = [];
+	    $scope.addItem = function(username,password){
+	      console.log(username + "---" + password);
+	      var obj = {
+	        username:username,
+	        password:password
+	      }
+	      $scope.list.push(obj);
+	      if($scope.list.length > 0){
+	         $scope.isOk = true;
+	      }
+	    };
+	    $scope.removeItem = function(index){
+	      $scope.list.splice(index,1);
+	      if($scope.list.length == 0){
+           $scope.isOk = false;
+        }
+	    }
+	  });
+	</script>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+         <link rel="stylesheet" type="text/css" href="./../jslib/bootstrap/bootstrap.min.css"/>
+        <script src="./../jslib/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+         <script src="./../jslib/bootstrap/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="./../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+ 
+    </head>
+    <body>
+        <div class="container" id="app">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail3" v-model="name" placeholder="用户名">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">信息</label>
+                    <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputPassword3"  v-model="xinxi" placeholder="信息">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-info" v-on:click="add()">添加</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- 表格 -->
+            <div class="bs-example col-sm-10" data-example-id="simple-table">
+                <table class="table">
+                 <caption>用户信息表</caption> 
+                <thead>
+                    <tr>
+                    <th>#</th>
+                    <th>用户名</th>
+                    <th>信息</th>
+                    <th>操作</th>
+                    </tr>
+                </thead>
+                 <tbody>
+                    <tr v-for="(it,index) in list">
+                    <th scope="row">{{index}}</th>
+                    <td>{{it.name}}</td>
+                    <td>{{it.xinxi}}</td>
+                    <td><button type="button" class="btn btn-info" v-on:click="delatedata(index)" data-toggle="modal" data-target="#gridSystemModal" >删除</button></td>
+                    </tr>
+                    <tr v-show="!isshow">
+                    <th scope="row"></th>
+                    <td></td>
+                    <td></td>
+                    <td><button type="button" class="btn btn-danger" @click="deleteall()" data-toggle="modal" data-target="#gridSystemModal" >删除全部</button></td>
+                    </tr>
+                 <tr v-show="isshow">
+                    <th scope="row"></th>
+                    <td>没有任何信息</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                    
+                </tbody> 
+                </table>
+            </div>
+            <!-- 模态框 -->
+            
+                <!-- <button type="button" class="btn btn-primary btn-lg"  data-toggle="modal" data-target="#gridSystemModal">
+                    Launch demo modal
+                </button> -->
+                        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="gridSystemModal">
+            <div class="modal-dialog" role="document" >
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">确认删除吗？</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                    <div class="col-md-4">删除了</div>
+                    <div class="col-md-4 col-md-offset-4">数据就不能回复哦！</div>
+                    </div>
+                
+                
+                    
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" @click="que()">确认</button>
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+                
+                
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                name:"",
+                xinxi:"",
+                list:[],
+                isshow:true,
+                index:""
+            },
+            methods:{
+                add(){
+                    var obg={
+                        name:this.name,
+                        xinxi:this.xinxi
+                    }
+                    this.list.push(obg);
+                    this.isshow=false;
+                    this.name="";
+                    this.xinxi="";
+                },
+                delatedata(index){
+                    this.index=index
+                    
+                },
+                deleteall(){
+                   this.index=this.list.length
+                    
+                },
+                que(){
+                    var index=this.index;
+                    if(index==this.list.length){
+                        this.list=[];
+                        this.isshow=true;
+                    }else{
+                        this.list.splice(index,1);
+                        if(this.list.length==0){
+                            this.isshow=true;
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+    
+</html>

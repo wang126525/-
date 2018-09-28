@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="main.css"/>
+	</head>
+	<body>
+		<div class="container" id="container">
+			<video src="c.mp4" id="vdo" ></video>
+			<div class="controls" id="controls">
+				<div class="playImg" >
+					<img src="img/pause.png" id="playImg" alt="" />
+				</div>
+				<div class="currentimeText" >
+					<span id="currentimeText">00:00</span> / <span id="durationText">18:26</span>
+				</div>
+				<div class="playRange" >
+					<input type="range" id="playRange" value="0" min="0" step="1"/>
+				</div>
+				<div class="volumeImg" >
+					<img src="img/vol.png" id="volumeImg" alt="" />
+				</div>
+				<div class="volumeRange" >
+					<input type="range" id="volumeRange" value="5" min="0" step="1" max="10"/>
+				</div>
+				<div class="fullscreenImg" >
+					<img src="img/fullScreen.png" id="fullscreenImg" alt="" />
+				</div>
+			</div>
+			<img src="img/pause.png" id="test"/>
+		</div>
+	</body>
+	<script src="player.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+//			console.log(document.querySelector("#vdo").duration)
+			new Player({
+				container:"#container",
+				vdo:"#vdo",
+				controls:"#controls",
+				playImg:"#playImg",
+				currentimeText:"#currentimeText",
+				durationText:"#durationText",
+				playRange:"#playRange",
+				volumeImg:"#volumeImg",
+				volumeRange:"#volumeRange",
+				fullscreenImg:"#fullscreenImg",
+				test:"#test"
+			});
+		}
+		
+	</script>
+</html>

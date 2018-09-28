@@ -1,0 +1,11 @@
+一、cnpm i antd --save
+    cnpm i babel-plugin-import --save
+    .babelrc
+      {
+         "presets":["es2015","react"],
+         "plugins": [
+          ["import", { libraryName: "antd", style: "css" }] 
+        ]
+      }
+    webpack.config.js种注释掉
+      //          exclude: /node_modules/,

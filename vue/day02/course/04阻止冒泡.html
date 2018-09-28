@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.test{
+				width: 100px;
+				height: 100px;
+				border: 1px solid #f66;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="test" @click="divClick()">
+				<button @click="btnClick($event)">btn</button>
+				<button @click.stop="btn2Click()">btn2</button>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		new Vue({
+			el:"#app",
+			data:{
+				
+			},
+			methods:{
+				divClick(){
+					console.log("div")
+				},
+				btnClick(ev){
+//					ev.cancelBubble = true;
+					ev.stopPropagation();
+					console.log("btn")
+				},
+				btn2Click(){
+					console.log("btn2")
+				}
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div class="container" id="app">
+			<form class="form-inline">
+			  <div class="form-group">
+			    <label class="sr-only" for="exampleInputEmail3">Email address</label>
+			    <input type="text" class="form-control" v-model="email" id="exampleInputEmail3" placeholder="Email">
+			  </div>
+			  <div class="form-group">
+			    <label class="sr-only" for="exampleInputPassword3">Password</label>
+			    <input type="password" class="form-control" v-model="password" id="exampleInputPassword3" placeholder="Password">
+			  </div>
+			  <input type="button" @click="saveData()" value="保存" class="btn btn-success"/>
+			</form>
+			
+			
+			<table class="table table-bordered">
+		      <thead>
+		        <tr>
+		          <th>#</th>
+		          <th>email</th>
+		          <th>password</th>
+		          <th>option</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+			  
+		        <tr  v-for = "(item,index) in list">
+		          <th scope="row">{{index + 1}}</th>
+		          <td>{{item.email}}</td>
+		          <td>{{item.password}}</td>
+		          <td><button @click="deleteData(index)" class="btn btn-danger">删除</button></td>
+		        </tr>
+		        
+		      </tbody>
+		    </table>
+		</div>
+		
+		
+	</body>
+	<script type="text/javascript">
+		
+		var wv = new Vue({
+		 	el:"#app",
+		 	data:{
+		 		email:"",
+		 		password:"",
+		 		list:[]
+		 	},
+		 	methods:{
+		 		saveData(){
+		 			console.log("save");
+		 			var obj = {
+		 				email:this.email,
+		 				password:this.password
+		 			};
+//		 			this.list = this.list.push(obj);
+					this.list.push(obj);
+		 			
+		 		},
+		 		deleteData(index){
+		 			console.log("delete");
+		 			this.list.splice(index,1);
+		 		}
+		 	}
+		})
+		
+		
+	</script>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jslib/angular-route.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  <ul>
+	  	<li ><a href="#!/">首页</a></li>
+	  	<li><a href="#!/computers">电脑</a></li>
+	  	<li><a href="#!/printers">打印机</a></li>
+	  </ul>
+	  <div ng-view></div>
+	</body>
+	<script src="module/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="config/config.js" type="text/javascript" charset="utf-8"></script>
+	<script src="controller/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="service/myAjax.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+      app.controller("myCtrl",function($scope){
+      });
+	</script>
+</html>

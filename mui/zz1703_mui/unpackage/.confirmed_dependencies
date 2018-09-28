@@ -1,0 +1,32 @@
+{
+  "index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/update.js"
+    ],
+    "refer": [
+      "index-menu.html",
+      "examples/accordion.html"
+    ]
+  },
+  "examples/accordion.html": {
+    "resources": [
+      "images/cbd.jpg",
+      "images/muwu.jpg",
+      "images/yuantiao.jpg",
+      "images/shuijiao.jpg"
+    ],
+    "refer": []
+  },
+  "test/index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "images/cbd.jpg"
+    ],
+    "refer": []
+  }
+}

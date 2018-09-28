@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+	ul {
+		padding-left: 0;
+		overflow: hidden;
+	}
+	ul li {
+		float: left;
+		list-style: none;
+		width: 27px;
+		height: 27px;
+		background: url(star.gif)
+	}
+	ul li a {
+		display: block;
+		width: 100%;
+		padding-top: 27px;
+		overflow: hidden;
+	}
+	ul li.light {
+		background-position: 0 -29px;
+	}
+</style>
+	<script type="text/javascript">
+
+		
+
+		window.onload = function () {
+			
+			var scoreUl = document.getElementsByClassName('score')[0];
+			var lis = scoreUl.getElementsByTagName('li');
+			for(let i=0;i<lis.length;i++){
+
+				lis[i].onmouseenter = function () {
+					console.log(i)
+//					lis[0]
+//					lis[1]
+//					lis[2]
+//					lis[3]
+//					lis[4]
+
+					// 获取数组中 0-i的元素
+					for(let j=0;j<lis.length;j++){
+						if(j <= i){
+							lis[j].className = 'light'
+						}else{
+							lis[j].className = ''
+						}
+
+					}
+
+
+				}
+			}
+		}
+
+
+	</script>
+</head>
+
+<body>
+<ul class="score">
+	<li class="light"><a href="javascript:;">1</a></li>
+	<li><a href="javascript:;">2</a></li>
+	<li><a href="javascript:;">3</a></li>
+	<li><a href="javascript:;">4</a></li>
+	<li><a href="javascript:;">5</a></li>
+</ul>
+</body>
+</html>

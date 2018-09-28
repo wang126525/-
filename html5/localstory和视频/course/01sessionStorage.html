@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" name="username" id="username" value="" />
+		<input type="button" name="saveBtn" id="saveBtn" value="保存数据" />
+		<input type="button" name="getBtn" id="getBtn" value="取得数据" />	
+		<input type="button" name="deleteBtn" id="deleteBtn" value="删除数据" />	
+	</body>
+	<script type="text/javascript">
+		function $(id){
+			return document.querySelector(id);
+		}
+		var saveBtn = $("#saveBtn");
+		var getBtn = $("#getBtn");
+		var deleteBtn = $("#deleteBtn");
+		var username = $("#username");
+		saveBtn.onclick = function(){
+			var val = username.value;
+			
+			sessionStorage.setItem("username",val);
+		}
+		getBtn.onclick = function(){
+			var str = sessionStorage.getItem("username");
+			if(str){
+				username.value = str;
+			}else{
+				alert("查无此数据")
+			}
+			
+		}
+		deleteBtn.onclick = function(){
+			sessionStorage.removeItem("username");
+		}
+	</script>
+</html>

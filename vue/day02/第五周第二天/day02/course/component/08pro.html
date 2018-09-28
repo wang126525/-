@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<v-header></v-header>
+			<v-content></v-content>
+			<v-footer></v-footer>
+		</div>
+	</body>
+	<template id="header">
+		<header>头部</header>
+	</template>
+	<template id="content">
+		<div>内容</div>
+	</template>
+	<template id="footer">
+		<footer>底部</footer>
+	</template>
+	<script type="text/javascript">
+		/**
+		 * 定义组件
+		 * 
+		 * 注册组件
+		 */
+		var Header = {
+			template:"#header",
+			data:function(){
+				return {
+					test:"头部"
+				}
+			}
+		}
+		var Content = {
+			template:"#content",
+			data:function(){
+				return {
+					test:"内容"
+				}
+			}
+		}
+		var Footer = {
+			template:"#footer",
+			data:function(){
+				return {
+					test:"底部"
+				}
+			}
+		}
+		
+		
+		
+		new Vue({
+			el:"#app",
+			data:{
+				msg:"这是初始化数据"
+			},
+			components:{
+				"v-header":Header,
+				"v-content":Content,
+				"v-footer":Footer
+			}
+		})
+	</script>
+</html>

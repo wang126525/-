@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{msg}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		var wv = new Vue({
+		  el:"#app",//ReactDOM.render(<HelloWorld/>,dg("app"))
+		  data:{//初始化数据，作用类似于react中的在构造器中的this.state={}
+		  	msg:"vue比react更棒" // 如果显示可以采用借鉴angular思想  {{msg}}
+		  }
+		})
+		
+		/**
+		 * react
+		 * HelloWorld
+		 * ReactDOM.render(<HelloWorld/>,dg("app"))
+		 * constructor(){
+		 * 	this.state = {
+		 * 		msg:"react最棒"
+		 * 	}
+		 * }
+		 * 显示
+		 * {this.state.msg}
+		 * 
+		 */
+	</script>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{msg}}
+			<button v-on:click="changeName()"> 切换msg </button>
+			<button @click="changeName1()"> 简写切换msg </button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var wv = new Vue({
+		  el:"#app",//ReactDOM.render(<HelloWorld/>,dg("app"))
+		  data:{//初始化数据，作用类似于react中的在构造器中的this.state={}
+		  	msg:"vue比react更棒", // 如果显示可以采用借鉴angular思想  {{msg}}
+		 },
+		 methods:{//此处存放的是所有的VUe定义的事件
+		 	//vue事件既可以使用v-on:click指令来实现
+		 	//也可以采用简写形式 使用@符号代替v-on:     ----   @click
+		 	changeName(){
+		 		//访问data中的数据。无需加data，直接通过this.msg即可
+//		 		alert(this.msg);
+		 		this.msg = "vue的事件比react简单"
+		 	},
+		 	changeName1(){
+		 		this.msg = "vue的事件比react简单，简写形式"
+		 	}
+		 }
+		})
+		
+		/**
+		 * react
+		 * 事件
+		 * this.state = {msg:""}
+		 * onClick = {this.clickHandler.bind(this)}
+		 * 
+		 * clickHandler(){
+		 * 	this.setState({
+		 * 	msg:""
+		 * })
+		 * }
+		 * 
+		 * {this.state.msg}
+		 * 
+		 */
+	</script>
+</html>

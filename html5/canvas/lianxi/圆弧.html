@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#canvas{
+				border: 1px solid #000;display: block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="1024" height="768"></canvas>
+	</body>
+	<script>
+		var canvas=document.querySelector("#canvas").getContext("2d");
+		for (var i = 0; i < 10; i++) {
+            canvas.beginPath();
+            canvas.arc(50 + i*100, 60, 40, 0, 2*Math.PI*(i+1)/10);
+          
+            canvas.stroke();
+         };
+         
+         for (var i=0;i<10;i++) {
+         	canvas.beginPath();
+         	canvas.strokeStyle="red"
+         	canvas.lineWidth=10
+         	canvas.arc(50 + i*100, 160, 40, 0, 2*Math.PI*(i+1)/10,true);
+         	
+         	canvas.stroke()
+         	
+         };
+         for (var i=0;i<10;i++) {
+         	canvas.beginPath();
+         	canvas.strokeStyle='red';
+         	canvas.lineWidth=2
+         	canvas.arc(50 + i*100, 260, 40, 0, 2*Math.PI*(i+1)/10,true);
+         	canvas.closePath();
+         	canvas.stroke()
+         };
+         for (var i = 0; i < 10; i++) {
+            canvas.beginPath();
+//          canvas.fillStyle="red"
+            canvas.arc(50 + i*100, 360, 40, 0, 2*Math.PI*(i+1)/10);
+          	canvas.closePath();
+            canvas.fill();
+         };
+          for (var i=0;i<10;i++) {
+         	canvas.beginPath();
+         	canvas.lineWidth=2
+         	canvas.arc(50 + i*100, 460, 40, 0, 2*Math.PI*(i+1)/10,true);
+         	canvas.closePath();
+         	canvas.fill()
+         };
+	</script>
+</html>

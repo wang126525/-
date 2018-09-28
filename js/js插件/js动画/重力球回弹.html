@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0px;}
+			div{width: 50px;height: 50px;border-radius: 50%;background: red;
+				border: 1px solid #000;position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script>
+		window.onload=function(){
+			var div=document.getElementsByTagName('div')[0];
+			var sx=9
+			var sy=0
+			document.onclick=function(){
+				div.time=setInterval(function(){
+					
+					div.style.top=div.offsetTop+sy+'px'
+					div.style.left=div.offsetLeft+sx+'px'
+					var w=document.documentElement.clientWidth||document.body.clientWidth;
+					var h=document.documentElement.clientHeight||document.body.clientHeight;
+					
+					
+					if(div.offsetLeft>w-div.offsetWidth ||div.offsetLeft<0){
+						sx=sx*-1
+					}
+					
+					if(div.offsetTop>=h-div.offsetHeight||div.offsetTop<0){
+						div.offsetTop=h-div.offsetHeight
+						console.log('便捷')
+						sy=(sy-8)*-1
+					}else{
+						sy=sy+8;
+					}
+					if(div.offsetTop>h-div.offsetHeight/2){
+						div.offsetTop=h-div.offsetHeight
+						sy=0
+					}
+				},30)
+			}
+		}
+	</script>
+</html>

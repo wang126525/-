@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{msg}}
+			
+			<ul>
+				<li v-for = "(user,index) in users">{{user}}--- {{index}}</li>
+			</ul>
+			<ul>
+				<li v-for = "item of list">{{item.name}}----{{item.age}}</li>
+			</ul>
+			<ul>
+				<li v-for = "car in cars">
+					<h1>{{car.brand}}</h1>
+					种类
+					<ul>
+						<li v-for = "item in car.kind">
+							{{item}}
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var wv = new Vue({
+		  el:"#app",//ReactDOM.render(<HelloWorld/>,dg("app"))
+		  data:{//初始化数据，作用类似于react中的在构造器中的this.state={}
+		  	msg:"vue比react更棒", // 如果显示可以采用借鉴angular思想  {{msg}}
+		  	users:["user1","user2","user3"],
+		  	list:[{
+					name:"张三",
+					age:30
+				},
+				{
+					name:"李四",
+					age:30
+				},{
+					name:"王五",
+					age:30
+				}],
+			cars:[{
+				brand:"宝马",
+				kind:["X5","X6"]
+			},{
+				brand:"奥迪",
+				kind:["Q3","A8"]
+			}
+			]
+		  }
+		})
+		
+		/**
+		 * react
+		 * 循环
+		 * var arr= [];
+		 * 
+		 * for(){
+		 * 	arr.push()
+		 * }
+		 * 
+		 * {arr}
+		 */
+	</script>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr=[1,2,3,4,9];
+//    arr.push(5); //尾部添加
+
+
+//    arr.pop();  //尾部删除
+
+//    var a=arr.unshift(0); //头部添加一个数据 返回数组的长度
+
+//    var a =arr.shift(); //头部删除一个数据  返回删除的数据
+
+//     var a=arr.slice(1) //从当前参数制定的索引值到数组结束  不改变原数组  返回一个新数组
+//    var a=arr.slice(2,4)  //从第一个参数开始 到第二个结束 不包含第二个参数
+//    var a=arr.splice(1); //从改参数表示的索引值开始到数组结束 改变原数组  变为截取后的元素
+//       var a=arr.splice(1,2)第二个表示截取的长度
+//    var a=arr.splice(1,2,8) //第三个表示要添加的元素   1,8,4
+
+// var a = arr.reverse(); //倒叙排列  原数组倒叙排列
+// console.log(a)
+
+//      var a =arr.sort(function (m,n) {
+//            return n-m; //大 --小  按ASCII吗排列  a
+//      })
+//
+//console.log(a)
+//    var a=arr.join(); //转化为字符串  默认用 ， 隔开
+//console.log(typeof(a))
+//    var a=arr.join(''); //去掉 ，
+//    console.log(a)
+//    var a=arr.join('|'); //用|隔开
+//	console.log(a)
+//    var arr2=[9,8,7,6];
+//    var a=arr.concat(arr2); //链接2个数组
+//    console.log(a)
+
+    //ES5
+
+//    console.log(arr.indexOf(2)); //查询数组时候含有摸个元素 有返回其索引   无 返回-1
+    
+//      arr.forEach(function (item,index) {
+//          console.log(item,index)
+//      })
+
+
+//    var a=arr.map(function(item){  //用法和foreach相似  有返回值
+//         
+//         console.log(item)
+//    })
+////		console.log(a)
+
+//    array.filter(callback,[ thisObject]);
+        var a= arr.filter(function (item) {
+             return item>2;
+        })
+      console.log(a,arr)
+
+/*
+ * 
+	 轮询服务器		实现多服务器管理后，目标服务器将定期联系主服务器以上载有关已执行的作业的信息，并下载新的作业。
+					 联系主服务器的过程称为服务器轮询，该过程按定期的轮询间隔发生。
+	tcp协议		一种面向连接的、可靠的、基于字节流的传输层通信协议
+				TCP提供一种面向连接的、可靠的字节流服务。面向连接意味着两个使用TCP的应用
+				（通常是一个客户和一个服务器）在彼此交换数据包之前必须先建立一个TCP连接。
+				这一过程与打电话很相似，先拨号振铃，等待对方摘机说“喂”，然后才说明是谁。
+				在一个TCP连接中，仅有两方进行彼此通信。
+ */
+
+    //字符串
+
+// var str=' 12345abcy ';
+
+//   console.log(str[0]);
+
+//    var a=str.charAt(2);    //通过索引找到具体的字符
+
+//    var a=str.indexOf('9'); //若有返回索引  无返回 -1
+
+//     var a=str.substring(1);  //从该参数开始到字符串结束
+//    var a=str.substring(1,3); //从第一个开始，到第二个结束 不包含第二个参数
+
+//    var a=str.slice(1,3);  //使用 第一个（包含） 和 第二个（不包含） 参数来指定字符串提取的部分。
+//    var a=str.substr(1,3) // 第二个表示截取的长度
+
+//     var a=str.split('') ;    //转化为数组
+
+//       var a=str.replace('a','A');  //第二个参数替换第一个
+
+//       var a=str.charCodeAt('7')  //返回参数索引值对应字符的字符编码
+
+//    var a=str.trim(); //去除首尾空白
+
+//  console.log(a,str);
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html >
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>无标题文档</title>
+		<link rel="stylesheet" href="dahuiji.css" />
+		<script src="js/common.js"></script>
+		<script src="js/animate.js"></script>
+
+		<script src="js/Loading.js"></script>
+		<script src="js/Logo.js"></script>
+		<script src="js/MyPlane.js"></script>
+		<script src="js/Bullet.js"></script>
+		<script src="js/Enemy.js"></script>
+
+		<script src="js/Engine.js"></script>
+	
+		<script>
+			var engine;
+			window.onload = function() {
+				 engine = new Engine();
+//				document.body.hasChildNodes();
+				
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="body_main" class="main">
+			<ul id="options" class="options">
+				<li value="1">超级困难</li>
+				<li value="2">非常困难</li>
+				<li value="3">比较困难</li>
+				<li value="4">春哥附体</li>
+			</ul>
+		</div>
+	</body>
+	
+</html>

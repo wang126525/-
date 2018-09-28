@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">标题</h1>
+	    <a class="mui-pull-right"><span class="mui-badge mui-badge-purple">456</span></a>
+	</header>
+		<ul class="mui-table-view">
+		    <li class="mui-table-view-cell mui-collapse">
+		        <a class="mui-navigate-right" href="#">面板1</a>
+		        <div class="mui-collapse-content">
+		            <p>面板1子内容</p>
+		        </div>
+		    </li>
+		    <li class="mui-table-view-cell mui-collapse">
+		        <a class="mui-navigate-right" href="#">面板</a>
+		            <div class="mui-collapse-content">
+		            <p>面板2子内容</p>
+		        </div>
+		    </li>
+		    <li class="mui-table-view-cell mui-collapse">
+		        <a class="mui-navigate-right" href="#">面板3</a>
+		        <div class="mui-collapse-content">
+		            <p>面板3子内容</p>
+		        </div>
+		    </li>
+		</ul>
+		
+		<div id="sheet" class="mui-popover mui-popover-bottom mui-popover-action ">
+		    <!-- 可选择菜单 -->
+		    <ul class="mui-table-view">
+		      <li class="mui-table-view-cell">
+		        <a href="#">拍照</a>
+		      </li>
+		      <li class="mui-table-view-cell">
+		        <a href="#">相册中选取</a>
+		      </li>
+		    </ul>
+		    <!-- 取消菜单 -->
+		    <ul class="mui-table-view">
+		      <li class="mui-table-view-cell">
+		        <a href="#sheet1"><b>取消</b></a>
+		      </li>
+		    </ul>
+		</div>
+		<a href="#sheet" id="openSheet" class="mui-btn mui-btn-primary mui-btn-block">打开操作表</a>
+		
+		
+		<button type="button" id="btn" data-loading-text="登录中..." data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-green mui-btn-block">登录</button>
+		<div class="mui-card">
+				<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../images/cbd.jpg)"></div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<p>Posted on January 18, 2016</p>
+						<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+					</div>
+				</div>
+				<div class="mui-card-footer">
+					<a class="mui-card-link">Like</a>
+					<a class="mui-card-link">Read more</a>
+				</div>
+			</div>
+			
+			<div class="mui-input-row mui-checkbox mui-left">
+			  <label>checkbox</label>
+			  <input name="checkbox1" type="checkbox" checked >
+			</div>
+			
+			<button  id = "alertBtn" class="mui-btn mui-btn-success">alert提示框</button>
+			
+			<div id="slider" class="mui-slider" >
+			  <div class="mui-slider-group mui-slider-loop">
+			    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+			    <div class="mui-slider-item mui-slider-item-duplicate">
+			      <a href="#">
+			        <img src="http://placehold.it/400x300">
+			      </a>
+			    </div>
+			    <!-- 第一张 -->
+			    <div class="mui-slider-item">
+			      <a href="#">
+			        <img src="http://placehold.it/400x300">
+			      </a>
+			    </div>
+			    <!-- 第二张 -->
+			    <div class="mui-slider-item">
+			      <a href="#">
+			        <img src="http://placehold.it/400x300">
+			      </a>
+			    </div>
+			    <!-- 第三张 -->
+			    <div class="mui-slider-item">
+			      <a href="#">
+			        <img src="http://placehold.it/400x300">
+			      </a>
+			    </div>
+			    <!-- 第四张 -->
+			    <div class="mui-slider-item">
+			      <a href="#">
+			        <img src="http://placehold.it/400x300">
+			      </a>
+			    </div>
+			    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+			    <div class="mui-slider-item mui-slider-item-duplicate">
+			      <a href="#">
+			        <img src="http://placehold.it/400x300">
+			      </a>
+			    </div>
+			  </div>
+			  <div class="mui-slider-indicator">
+			    <div class="mui-indicator mui-active"></div>
+			    <div class="mui-indicator"></div>
+			    <div class="mui-indicator"></div>
+			    <div class="mui-indicator"></div>
+			  </div>
+			</div>
+			
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui(document.body).on('tap', '#btn', function(e) {
+			    mui(this).button('loading');
+			    setTimeout(function() {
+			        mui(this).button('reset');
+			    }.bind(this), 2000);
+			});
+			
+			mui(document.body).on('tap', '#alertBtn', function(e) {
+//				alert(11111)
+				mui.alert("点击alert提示框","测试alert","1111",function(){
+					mui.toast("2222222222")
+				})
+			})
+			var gallery = mui('.mui-slider');
+				gallery.slider({
+				  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
+				});
+		</script>
+	</body>
+
+</html>

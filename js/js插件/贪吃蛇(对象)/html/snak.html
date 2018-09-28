@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style type="text/css">
+body{ margin:0 auto;}
+.food,#head{
+    position:absolute; width:10px; height:10px; overflow:hidden;
+    background-color:red;
+}
+.snake{
+    position:absolute; width:10px; height:10px; overflow:hidden;
+    background-color:darkred;
+
+</style>
+<script type="text/javascript">
+
+function Snake(){
+////首先是定义一个Snake函数，里面包含了全部的方法
+//把一切的东西都归0；
+//这个题中最重要的是要通过键盘来操作
+//、所以开始的时候我们把键盘的初始位置定在右面既是39；
+    this.body=document.getElementsByTagName("body")[0];
+    this.food=null;
+    this.head=null;
+    this.timer=0;
+    var me=this;
+    this._cmd=39;
+
+    //获取屏幕宽高
+    this.w=document.documentElement.clientWidth||document.body.clientWidth;
+    this.h=document.documentElement.clientHeight||document.body.clientHeight;
+
+    /**
+     * 创建食物
+     * 
+     * 
+     * 创建食物，定制随机位置并且添加到body中
+     * 
+     */
+    
+    
+    this.createFood=function(){
+        this.food=document.createElement("div");
+        this.food.style.left=Math.floor(Math.random()*(this.w-10)/10)*10+"px";
+        this.food.style.top=Math.floor(Math.random()*(this.h-10)/10)*10+"px";
+        this.food.className="food";
+        this.body.appendChild(this.food);
+    }
+    // 运动
+    // 
+    // 
+    // 
+    //判断当食物的位置和头部的位置一样时，创建一个食物
+    this.comparePos=function(){
+  if(this.head.offsetTop==this.food.offsetTop&&this.head.offsetLeft==this.food.offsetLeft){
+  	      me.food.className="snake";
+  	      me.createFood();
+    	
+
+
+    	}
+    
+
+    }
+    
+    //、由于吃掉食物后蛇的长度不断在增加，因此增加后长度变长，后面的不断在加入进来
+    this.caclulate=function(){
+     for(var i=this.body.children.length-1-1;i>0;i--){//为什么要两次减一？？？？
+                    this.body.children[i].style.left=this.body.children[i-1].style.left;
+                    this.body.children[i].style.top=this.body.children[i-1].style.top;
+                }
+
+    }
+    
+    this.move=function(){
+      clearTimeout(me.timer);
+      me.caclulate();
+      if(me._cmd==38 || me._cmd==40){
+                    me.head.style.top=(me.head.offsetTop+(me._cmd==38?-10:10))+"px";
+                }else{
+                    me.head.style.left=(me.head.offsetLeft+(me._cmd==37?-10:10))+"px";
+                }
+                me.comparePos();
+
+      me.timer=setTimeout(me.move,100)
+
+    }
+
+
+   this.eventHandle=function(){
+
+
+    
+   
+    document.onkeydown=function(e){
+        e=e||window.event;
+        var _code=e.keyCode||e.which;
+       
+       if((_code>=37&&_code<=40)&&(me._cmd==39 && _code!=37 || me._cmd==37 && _code!=39 || me._cmd==38 && _code!=40 || me._cmd==40 && _code!=38)){
+
+           me._cmd=_code;
+           me.move(); 
+        }
+    }
+     
+}
+
+    /**
+     * 创建蛇
+     */
+    this.createSnake=function(){
+        var _body=null;
+        for(var i=0;i<4;i++){
+            if(i==0){
+                this.head=document.createElement("div");
+                this.head.id="head";
+                this.head.style.left="30px";
+                this.head.style.top="0px";
+                this.body.appendChild(this.head);
+            }else{
+                _body=document.createElement("div");
+                _body.className="snake";
+                _body.style.left=(4-i-1)*10+"px";
+                _body.style.top="0px";
+                this.body.appendChild(_body);
+            }
+        }
+    }
+}
+
+window.onload=function(){
+
+ var sanke=new Snake();
+ sanke.createSnake();
+ sanke.createFood();
+ sanke.eventHandle();
+
+}
+
+</script>
+<body>
+	
+</body>
+</html>

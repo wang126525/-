@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>本地存储、多媒体、webwoker、websocket</title>
+		<style type="text/css">
+			.clearfix {
+				clear: both;
+			}
+			
+			.main {
+				background-color: #fff;
+			}
+			
+			.bg {
+				background-color: #eee;
+				border: 1px solid #ccc;
+			}
+			
+			.content {
+				overflow: hidden;
+			}
+			
+			.oLeft,
+			.oRight {
+				width: 45%;
+				float: left;
+				text-align: left;
+			}
+			
+			.oRight {
+				margin-left: 5%;
+			}
+			
+			img {
+				width: 100%;
+			}
+			
+			.title {
+				color: #f66;
+				cursor: pointer;
+			}
+			
+			.con {
+				color: #666;
+				display: none;
+			}
+			
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+				font-family: "黑体";
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="main">
+			<h1>一、webStorage</h1>
+			<div class="content bg">
+				<h2>1、目标</h2>
+				<div class="oLeft">
+					<p>&nbsp;&nbsp;1、了解cookie的不足之处，引入webstorage的概念
+						<br/>&nbsp;&nbsp;2、学习并且掌握webstorage有哪两种
+						<br/>&nbsp;&nbsp;3、学习并且掌握sessionStorage
+						<br/>&nbsp;&nbsp;4、学习并且掌握localStorage
+						<br/>&nbsp;&nbsp;5、反复练习localStorage的用法
+						<br/>&nbsp;&nbsp;6、掌握离线存储技术
+						<br/>&nbsp;&nbsp;7、掌握多媒体标签的一些基本属性
+						<br/>&nbsp;&nbsp;8、自主开发出一个自定义视频播放器的控件
+						<br/>&nbsp;&nbsp;9、熟悉使用webwoker
+						<br/>&nbsp;&nbsp;10、了解webSocket的原理
+					</p>
+				</div>
+				<div class="oRight">
+					<h2>1、HTML5中的本地存储概念是什么？</h2>
+					<p><br/>&nbsp;&nbsp;很多时候我们会存储用户本地信息到电脑上，例如：比方说用户有一个填充了一半的长表格，然后突然网络连接断开了，这样用户希望你能存储这些信息到本地，当网络恢复的时候，他想获取这些信息然后发送到服务器进行存储
+现代浏览器拥有的存储被叫做“LocalStorage”,你可以存储这些信息</p>
+					<h2>2、本地存储的生命周期是什么？</h2>
+					<p><br/>&nbsp;&nbsp;本地存储没有生命周期，它将保留知道用户从浏览器清除或者使用Javascript代码移除</p>
+				</div>
+				<div class="clearfix"></div>
+				<h1>2、本地存储和cookies之间的区别</h1>
+				<div class="oLeft">
+					<img src="img/diff.png"/>
+				</div>
+				<div class="clearfix"></div>
+				<h1>3、webStorage</h1>
+				<div class="oLeft">
+					<br/>&nbsp;&nbsp;在H5中webStorage其实就是在web上存储数据，分为两种：
+					<br/>&nbsp;&nbsp;sessionStorage 在浏览器关闭时存储的数据将消失---临时存储
+					<br/>&nbsp;&nbsp;localStorage 可以一直存在 --- 永久存储
+				</div>
+				<div class="clearfix"></div>
+				<h1>4、webStorage写法</h1>
+				<div class="oLeft">
+					<a href="本地存储/webstorage.html" target="_blank">案例1</a>
+					<a href="本地存储/web留言本.html" target="_blank">案例2</a>
+					<a href="本地存储/sql.html" target="_blank">案例3</a>
+					<a href="本地存储/仿QQ浏览器小说设置.html" target="_blank">作业</a>
+					<br/>&nbsp;&nbsp;1、储存：localStorage.setItem(key,value);
+				<br/>&nbsp;&nbsp;&nbsp;&nbsp;localStorage.key = value;//key、value为键值对形式，key作为唯一标识，value做位置，不建议使用
+				这一种，但是别不认识
+				<br/>&nbsp;&nbsp;&nbsp;&nbsp;注：如果key存在时，更新value
+		<br/>&nbsp;&nbsp;2、获取数据：localStorage.getItem(key);
+					<br/>&nbsp;&nbsp;&nbsp;&nbsp;localStorage.key //不建议使用这一种，但是别不认识
+					<br/>&nbsp;&nbsp;&nbsp;&nbsp;注：如果key不存在返回null
+		<br/>&nbsp;&nbsp;3、删除：localStorage.removeItem(key);
+					<br/>&nbsp;&nbsp;&nbsp;&nbsp;注：一旦删除，key对应的数据将会全部删除
+		<br/>&nbsp;&nbsp;4、全部清除：localStorage.clear();
+				<br/>&nbsp;&nbsp;&nbsp;&nbsp;注：某些时候使用removeItem逐个删除太麻烦，可以使用clear,执行的后果是会清除所有localStorage对象保存的数据
+		<br/>&nbsp;&nbsp;5、遍历localStorage存储的key
+			<br/>&nbsp;&nbsp;&nbsp;&nbsp;.length 数据总量，例：localStorage.length
+			<br/>&nbsp;&nbsp;&nbsp;&nbsp;.key(index) 通过索引获取key值，例：var key=localStorage.key(index);
+		<br/>&nbsp;&nbsp;6、存储JSON格式数据
+		<p style="color:#f00">总结：如果需要判断是否支持本地存储，可以通过window.sessionStorage或者window.localStorage去判断。</p>
+				</div>
+				
+				<div class="clearfix"></div>
+				<h1>5、离线缓存</h1>
+				<div class="oLeft">
+					<h2>1、应用场景：</h2>
+					<p><br/>&nbsp;&nbsp;a）、离线浏览--缓存数据（新闻、阅读、视频）
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<br/>&nbsp;&nbsp;b）、本地保存用户的操作数据（邮箱软件----离线编辑、在线发送）
+					
+					</p>
+					<h2>2、HTML5提供的数据持久化技术：</h2>
+					<p><br/>&nbsp;&nbsp;a）、Application Cache
+						&nbsp;&nbsp;&nbsp;&nbsp;本地缓存所应用的文件
+						<br/>&nbsp;&nbsp;b）、WEB SQL
+						&nbsp;&nbsp;&nbsp;&nbsp;关系型数据库，通过SQL数据访问
+						<br/>&nbsp;&nbsp;c）、IndexDB
+						&nbsp;&nbsp;&nbsp;&nbsp;索引数据库
+					</p>
+					<h2>3、Application Cache</h2>
+					<p><br/>&nbsp;&nbsp;a）、Manifest文件
+						<br/>&nbsp;&nbsp;b）、Application Cache文件
+						<br/>&nbsp;&nbsp;c）、特点
+						<br/>&nbsp;&nbsp;&nbsp;&nbsp;Manifest文件必须有变化才更新
+						<br/>&nbsp;&nbsp;&nbsp;&nbsp;一次必须更新Manifest文件中的所有文件
+						<br/>&nbsp;&nbsp;&nbsp;&nbsp;下次才生效
+						<img src="img/tomcat.png"/>
+					</p>
+				</div>
+				<div class="clearfix"></div>
+				<h1>6、多媒体（video/audio）( <a href="num9_多媒体/demo2_自定义播放控件.html">案例</a> )</h1>
+				<div class="oLeft">
+					<h2>1、应用场景：</h2>
+					<br/>&nbsp;&nbsp;1、常见的视频格式
+							视频的组成部分：画面、音频、编码格式
+							视频编码：H.264、theora、VP8(google开源)
+						<br/>&nbsp;&nbsp;	2、常见的音频格式
+							&nbsp;&nbsp;&nbsp;&nbsp;编码：AAC、MP3、Vorbis
+						<br/>&nbsp;&nbsp;	3、HTML5虽然能在完全脱离插件的情况下播放音视频，但不是支持所有的格式
+							&nbsp;&nbsp;&nbsp;&nbsp;支持的视频格式：
+							&nbsp;&nbsp;&nbsp;&nbsp;OGG = 带有Theora视频编码+Vorbis音频编码的ogg文件
+							&nbsp;&nbsp;&nbsp;&nbsp;浏览器支持：F,C,O
+						&nbsp;&nbsp;&nbsp;&nbsp;	MPEG4 = 带有H.264视频编码+AAC音频编码的MPEG4文件
+							浏览器支持:S,C
+							&nbsp;&nbsp;&nbsp;&nbsp;WebM = 带有VP8视频格式编码+Vorbis音频编码的WebM格式
+							&nbsp;&nbsp;&nbsp;&nbsp;浏览器支持:I、F、C、O
+						<br/>&nbsp;&nbsp;	4、视频Video的使用方法
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;video src="http://www.bigaody.com" controls="controls">&lt;/video>
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt; video src="文件地址" controls="controls">
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;	您的浏览器暂不支持video标签。播放视频
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ video >
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt; video  controls="controls"  width="300">
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;	&lt;source src="move.ogg" type='video/ogg; codecs="theora, vorbis"'>
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;	&lt;source src="move.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' >
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;source src="move.webm"  type='video/webm; codecs="vp8, vorbis"' >
+							
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;	您的浏览器暂不支持video标签。播放视频
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ video >
+						<br/>&nbsp;&nbsp;	5、video常见属性
+							<img src="img/常见属性1.png"/>
+						<br/>&nbsp;&nbsp;	6、video常见方法
+							<img src="img/常见方法1.png"/>
+						<br/>&nbsp;&nbsp;	7、video的API属性
+							<img src="img/video1.png"/>
+							<img src="img/video2.png"/>
+							<img src="img/video3.png"/>
+							
+							
+							8、audio支持的格式
+							&nbsp;&nbsp;&nbsp;&nbsp;HTML5支持的音频格式：
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;Ogg		   免费	支持的浏览器:C、F、O
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;MP3		   收费	支持的浏览器: I、C、S
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;Wav		   收费	支持的浏览器: F、O、S
+							9、audio的使用
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;audio  src="文件地址" controls="controls">&lt;/audio>
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt; audio src="文件地址" controls="controls">
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;	您的浏览器暂不支持audio标签。播放视频
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ audio>
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt; audio controls="controls"  >
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;	&lt;source src="happy.MP3" type="video/mpeg" >
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;	&lt;source src="happy.ogg" type="video/ogg" >
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;	您的浏览器暂不支持audio标签。播放视频
+							<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ audio>
+							10、audio常见属性
+							<img src="img/audio.png"/>
+					</p>
+				</div>
+				<div class="clearfix"></div>
+				<h1>7、webwoker（ <a href="webwoker/index.html">单线程案例</a> <a href="webwoker/webwoker.html">webwoker案例</a> ）</h1>
+				<div class="oLeft">
+					案例：计算随机的100个数能被3整除的输出（ <a href="webwoker/计算.html">原来</a> <a href="webwoker/与线程进行数据交互.html">webwoker</a> ）
+					<p><br/>&nbsp;&nbsp;Web Workers 是在HTML5中新增的，用来在web应用程序中实现后台处理的一种技术
+<br/>&nbsp;&nbsp;在HTML4中，js创建的程序都是单线程的，如果花费时间比较长的话web界面就会长时间没有响应，最恶劣的情况还会跳出一个脚本提示框：
+提示脚本运行时间过长，是否继续。。。。于是就引出了本文的主角：Web Workers API</p>
+					<p>postMessage() 方法 - 它用于向 HTML 页面传回一段消息。</p>
+					<p>onmessage() 方法 - 收数据，数据为e.data。</p>
+					<p>如需终止 web worker，并释放浏览器/计算机资源，请使用 terminate() 方法：</p>
+					<p>我们可以做什么：
+
+						<br/>&nbsp;&nbsp;1.可以加载一个JS进行大量的复杂计算而不挂起主进程，并通过postMessage，onmessage进行通信
+						
+						<br/>&nbsp;&nbsp;2.可以在worker中通过importScripts(url)加载另外的脚本文件
+						
+						<br/>&nbsp;&nbsp;3.可以使用 setTimeout(), clearTimeout(), setInterval(), and clearInterval()
+						
+						<br/>&nbsp;&nbsp;4.可以使用XMLHttpRequest来发送请求
+						
+						<br/>&nbsp;&nbsp;5.可以访问navigator的部分属性
+						
+						有那些局限性：
+						
+						<br/>&nbsp;&nbsp;1.不能跨域加载JS
+						
+						<br/>&nbsp;&nbsp;2.worker内代码不能访问DOM
+						
+					<br/>&nbsp;&nbsp;	3.各个浏览器对Worker的实现不大一致，例如FF里允许worker中创建新的worker,而Chrome中就不行
+						
+						4.不是每个浏览器都支持这个新特性</p>
+				</div><br/>&nbsp;&nbsp;
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	</script>
+
+</html>

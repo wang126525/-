@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--<HelloWorld ></HelloWorld>-->
+			{{msg}}
+			<v-header></v-header>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * 定义组件
+		 * 
+		 * 注册组件
+		 */
+		var Header = {
+			template:"<header>这是头部{{test}}</header>",
+			data:function(){
+				return {
+					test:"自定义组件的初始数据"
+				}
+			}
+		}
+		
+		
+		
+		
+		new Vue({
+			el:"#app",
+			data:{
+				msg:"这是初始化数据"
+			},
+			components:{
+				"v-header":Header
+			}
+		})
+	</script>
+</html>

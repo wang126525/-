@@ -1,0 +1,64 @@
+{
+  "index.html": {
+    "resources": [
+      "css/common.css",
+      "js/update.js",
+      "js/shortcut.js",
+      "js/immersed.js"
+    ],
+    "refer": [
+      "plus/events.html",
+      "plus/file.html",
+      "plus/gallery.html",
+      "plus/geolocation.html",
+      "plus/maps.html"
+    ]
+  },
+  "plus/events.html": {
+    "resources": [
+      "js/common.js"
+    ],
+    "refer": []
+  },
+  "plus/file.html": {
+    "resources": [
+      "img/fdisk.png",
+      "img/fup.png",
+      "img/ffile.png",
+      "img/fdir.png"
+    ],
+    "refer": []
+  },
+  "plus/maps.html": {
+    "refer": [
+      "plus/maps_map.html"
+    ],
+    "resources": []
+  },
+  "test/test.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "test/list.html"
+    ],
+    "refer": []
+  },
+  "test/list.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "test/detail.html"
+    ]
+  },
+  "test/detail.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  }
+}

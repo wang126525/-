@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<style type="text/css">
+			*{padding: 0;margin: 0;list-style: none;}
+			#list{
+				position: absolute;
+				left: 0;
+				top:50px;
+				width: 100%;
+			}
+			#list li{
+				width: 100%;
+				position: absolute;
+				height: 30px;
+				border-bottom: 1px solid #ccc;
+				background-color: #eee;
+			}
+			#list li p{
+				position: absolute;
+				left:0;
+			}
+			#list li button{
+				position: absolute;
+				right:-100px;
+				z-index: -1;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="list">
+			<li><p>第1个</p> <button>删除</button></li>
+			
+		</ul>
+		<input type="button" name="btn" id="btn" value="点击转换" />	
+		
+	</body>
+	<script src="jslib/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jslib/zepto/fx.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jslib/touch/touch.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		/**
+		 * 发现zepto 中touch中的swipe事件无效，引入专门的一个touch.js
+		 */
+		$("#btn").on("tap",function(){
+			console.log("111111111111")
+			$("#list").animate({
+				"left":"200px"
+			})
+		})
+		$("#list").find("li").on("swipeleft",function(){
+			console.log("left");
+			$(this).find("p").animate({
+				"left":"-100px"
+			})
+		})
+		
+	</script>
+</html>

@@ -1,0 +1,594 @@
+一、事件冒泡
+	方法一、使用event.cancelBubble = true来阻止冒泡
+		<div @click="show2()">
+	    	<input type="button" value="按钮" @click="show1($event)">
+	    </div>
+	    methods:{
+	        show1:function(ev){
+	            console.log(ev);
+	            alert(1);
+	            ev.cancelBubble=true;   /*阻止冒泡*/
+	        },
+	        show2:function(){
+	            alert(2);
+	        }
+	    }
+	方法二：使用vue自带的方法组织冒泡
+		<div @click="show2()">
+            <input type="button" value="按钮" @click.stop="show1()">
+        </div>
+           拓展：事件修饰符
+		参考API：http://cn.vuejs.org/v2/guide/events.html#事件修饰符
+		在事件处理程序中调用 event.preventDefault() 或 event.stopPropagation() 是非常常见的需求。尽管我们可以在 methods 中轻松实现这点，但更好的方式是：methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。
+		为了解决这个问题， Vue.js 为 v-on 提供了 事件修饰符。通过由点(.)表示的指令后缀来调用修饰符。
+	        .stop
+			.prevent
+			.capture
+			.self
+			.once
+		<!-- 阻止单击事件冒泡 -->
+		<a v-on:click.stop="doThis"></a>
+		<!-- 提交事件不再重载页面 -->
+		<form v-on:submit.prevent="onSubmit"></form>
+		<!-- 修饰符可以串联  -->
+		<a v-on:click.stop.prevent="doThat"></a>
+		<!-- 只有修饰符 -->
+		<form v-on:submit.prevent></form>
+		<!-- 添加事件侦听器时使用事件捕获模式 -->
+		<div v-on:click.capture="doThis">...</div>
+		<!-- 只当事件在该元素本身（而不是子元素）触发时触发回调 -->
+		<div v-on:click.self="doThat">...</div>
+		<!-- 点击事件将只会触发一次 -->
+		<a v-on:click.once="doThis"></a>
+二、键盘事件
+	<input type="text" @keydown="show">
+	show:function(){
+     	alert(1);
+    }
+    <input type="text" @keydown="show2($event)">
+    show2:function(ev){
+        console.log(ev.keyCode);
+        if(ev.keyCode==13){
+            alert('按下了回车键盘');
+        }
+    },
+ 	<input type="text" @keyup="show3($event)">
+	show3:function(ev){
+        console.log(ev.keyCode);
+        if(ev.keyCode==13){
+            alert('回车键盘弹起的时候触发的事件show3');
+        }
+    }
+  	拓展：按键修饰符
+  	参考API：http://cn.vuejs.org/v2/guide/events.html#按键修饰符
+  	在监听键盘事件时，我们经常需要监测常见的键值。 Vue 允许为 v-on 在监听键盘事件时添加按键修饰符：
+  		<!-- 只有在 keyCode 是 13 时调用 vm.submit() -->
+		<input v-on:keyup.13="submit">
+	记住所有的 keyCode 比较困难，所以 Vue 为最常用的按键提供了别名
+		<!-- 同上 -->
+		<input v-on:keyup.enter="submit">
+		<!-- 缩写语法 -->
+		<input @keyup.enter="submit">
+	全部的按键别名：
+		.enter
+		.tab
+		.delete (捕获 “删除” 和 “退格” 键)
+		.esc
+		.space
+		.up
+		.down
+		.left
+		.right
+		.ctrl
+		.alt
+		.shift
+		.meta
+	********
+		注意：在Mac系统键盘上，meta对应命令键 (⌘)。在Windows系统键盘meta对应windows徽标键(⊞)。在Sun操作系统键盘上，meta对应实心宝石键 (◆)。在其他特定键盘上，尤其在MIT和Lisp键盘及其后续，比如Knight键盘，space-cadet键盘，meta被标记为“META”。在Symbolics键盘上，meta被标记为“META” 或者 “Meta”。
+	********
+	可以通过全局 config.keyCodes 对象自定义按键修饰符别名：
+		// 可以使用 v-on:keyup.f1
+		Vue.config.keyCodes.f1 = 112
+
+	<!-- Alt + C -->
+	<input @keyup.alt.67="clear">
+	<!-- Ctrl + Click -->
+	<div @click.ctrl="doSomething">Do something</div>
+三、checkbox
+	注意对比angular写法，选中与不选中直接对应的是显示还是隐藏我们的box，flag在默认的data中设置为false
+	<input type="checkbox" v-model="flag"/>
+    <div class="box" v-if="flag">
+        box
+    </div>
+四、select
+	对比angular写法http://www.runoob.com/angularjs/angularjs-select.html
+	data: {
+        selected: 'C',
+        options: [
+            { text: 'One', value: 'A' },
+            { text: 'Two', value: 'B' },
+            { text: 'Three', value: 'C' }
+        ]
+    }
+    <select v-model="selected">
+	    <option v-for="item in options" :value="item.value">
+	            {{item.text}}
+	    </option>
+    </select><br/>
+        选中:{{selected}}
+五、radio
+	对比angular
+	使用四中的源数据
+	<ul>
+        <li v-for="option in options">
+			<input type="radio" name="myRadio" :value="option.value"  v-model="selected"/>{{option.text}}
+            </li>
+        </ul><br/>
+        <span>选择的是: {{ selected }}</span>
+六、生命周期函数
+	对比react生命周期函数
+		初始化：
+			getDefaultProps：作用于组件类，只调用一次，返回对象用于设置默认的props，对于引用值，会在实例中共享。
+			getInitialState：作用于组件的实例，在实例创建时调用一次，用于初始化每个实例的state，此时可以访问this.props。
+			componentWillMount：在完成首次渲染之前调用，此时仍可以修改组件的state。
+			render
+				必选的方法，创建虚拟DOM，该方法具有特殊的规则：
+					只能通过this.props和this.state访问数据
+					可以返回null、false或任何React组件
+					只能出现一个顶级组件（不能返回数组）
+					不能改变组件的状态
+					不能修改DOM的输出
+			componentDidMount：真实的DOM被渲染出来后调用，在该方法中可通过this.getDOMNode()访问到真实的DOM元素。此时已可以使用其他类库来操作这个DOM。
+		运行时：
+			componentWillReceiveProps：组件接收到新的props时调用，并将其作为参数nextProps使用，此时可以更改组件props及state。
+				componentWillReceiveProps: function(nextProps) {
+			        if (nextProps.bool) {
+			            this.setState({
+			                bool: true
+			            });
+			        }
+			    }
+			shouldComponentUpdate：组件是否应当渲染新的props或state，返回false表示跳过后续的生命周期方法，通常不需要使用以避免出现bug。在出现应用的瓶颈时，可通过该方法进行适当的优化。
+			componentWillUpdate：接收到新的props或者state后，进行渲染之前调用，此时不允许更新props或state。
+			render
+			componentDidUpdate：完成渲染新的props或者state后调用，此时可以访问到新的DOM元素。
+		销毁：
+			componentWillUnmount：组件被移除之前被调用，可以用于做一些清理工作，在componentDidMount方法中添加的所有任务都需要在该方法中撤销，比如创建的定时器或添加的事件监听器。
+	参考API：http://cn.vuejs.org/v2/guide/instance.html#实例生命周期
+	每个 Vue 实例在被创建之前都要经过一系列的初始化过程。例如，实例需要配置数据观测(data observer)、编译模版、挂载实例到 DOM ，然后在数据变化时更新 DOM 。在这个过程中，实例也会调用一些 生命周期钩子 ，这就给我们提供了执行自定义逻辑的机会。
+	beforeCreate:实例刚刚被创建1
+	created:实例已经创建完成2
+	beforeMount:模板编译之前3
+	mounted:模板编译完成4------********请求数据放在这个里面  必须记住*****
+	beforeUpdate:数据更新之前
+	updated:数据更新完毕
+	beforeDestroy:实例销毁之前
+	destroyed:实例销毁完成    ----this.$destroy();销毁实例
+	{{msg}}
+	<input type="button" value="更新数据" @click="update()">
+    <input type="button" value="销毁组件" @click="destroy">
+  	data:{
+        msg:'welcome vue2.0'
+    },
+  	methods:{   /*自定义方法*/
+        update(){
+            this.msg='大家好';
+        },
+        destroy(){
+            this.$destroy();   /*销毁实例 组件*/
+        }
+    }
+七、模拟百度搜索提示功能
+	1、监听文本框中的值
+	2、请求百度的接口
+	3、实现方法，watch监听文本框的输入变化，按键修饰符keyup实现
+	4、可以在表单的input 元素上使用v-model 指令来创建双向数据绑定。它会根据input元素的类型自动选取正确的绑定模式。
+  // var api='https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+newValue;
+	<input type="text" v-model="search"/>
+    <br/>
+    <ul>
+        <li v-for="item in list">
+
+            {{item}}
+        </li>
+    </ul>
+	方法一watch:
+		引入<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+		data:{
+            search:'',
+            list:[]
+        }
+        var timer='';
+        vm.$watch('search',function(newValue){
+	        console.log(newValue);
+	        clearTimeout(timer);
+
+	        var _that=this;
+	        timer=setTimeout(function(){
+	            //去服务器请求数据
+	            var api='https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+newValue;
+	            _that.$http.jsonp(api,{
+	                jsonp:'cb'  /*改变回调函数*/
+	            }).then(function(data){
+	                console.log(data.body.s);
+	                _that.list=data.body.s;   /*改变data绑定的值*/
+	            })
+	        },200);
+    	})
+           方法二：键盘事件  @keyup
+           <input type="text" v-model="search" @keyup="requestData()"/>
+          data:{
+	            search:'',
+	            list:[],
+	            timer:''
+	        },
+	        methods:{
+	            requestData:function(){
+	                var api='https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+this.search;
+	                var _that=this;
+	                clearTimeout(this.timer);  /*清除定时器*/
+	                this.timer=setTimeout(function(){
+	                    //去服务器请求数据
+	                    _that.$http.jsonp(api,{
+	                        jsonp:'cb'  /*改变回调函数*/
+	                    }).then(function(data){
+	                        console.log(data.body.s);
+	                        _that.list=data.body.s;   /*改变data绑定的值*/
+	                    })
+
+	                },200)
+
+
+
+
+	            }
+	        }
+八、简单留言板的实现
+	案例展示如：vue简易留言板-项目实现.html
+	第一步，在bootstrap官网中找到相关的组件
+	第二步：设置初始化的data
+		data:{
+            myData:[],
+            username:'',
+            age:'',
+            nowIndex:-100
+        },
+           第三步：給布局中添加v-model   username   age
+           第四步：添加增加事件
+          add:function(){
+            this.myData.push({
+                name:this.username,
+                age:this.age
+            });
+
+            this.username='';
+            this.age='';
+        },
+           第五步：循环遍历数据 this.myData
+           第六步：給删除按钮赋值v-on:click="nowIndex=$index"
+	第七步：模态框中按钮删除事件
+		deleteMsg:function(n){
+            this.myData.splice(n,1);
+        }
+九、组件----angular 自定义指令
+	方法一：vue1.0
+		1、定义组件
+			var Header=Vue.extend({
+	            template:'<h1>这是一个头部组件</h1>'
+	        })
+		2、注册组件
+			Vue.component('v-header',Header);
+			//注意： 组件名称不能和html标签一样
+		3、使用
+			<v-header></v-header>
+	方法二：
+		//1.定义组件
+	    var Header={	//最常用方式
+	        template:'<h1>这是一个头部组件</h1>'
+	    }
+	    var vm=new Vue({
+	        el:'#app',
+	        data:{
+	            name:'zhangsan',
+	            age:'123'
+	        },
+	        components:{
+	            'v-header':Header   /*2. 另一种注册组件的方式  注册组件*/
+	        }
+	    });
+	方法三：
+		Vue.component('v-footer',{    /*定义组件和注册组件放在一起*/
+	        template:'<h1>这是一个底部组件</h1>'
+	    })
+	方法四：
+		components:{
+            'v-header':Header,
+            'v-footer':{
+                template:'<h2>这是一个底部组件11</h2>'
+            }
+        }
+十、组件深入
+	<v-header></v-header>
+	var Header={   /*1.定义组件   */
+        template:'<h1 @click="run()">这是一个头部组件11--{{name}}--{{msg}}</h1>',
+        data:function(){   /*组件里面定义数据的方式*/
+            return {
+                name:'李四',
+                msg:'this is a  component'
+            }
+        },methods:{
+            run(){
+                this.name='王五';
+
+                alert('this is a  Header component  run');
+             }
+        }
+    }
+    vue实例中注册组件
+    components:{
+        'v-header':Header
+    }
+十一、组件模板
+	方法一：使用script   type类型为x-template  设置id
+		<script type="x-template" id="header">
+			<div class="header">
+				<h2>这是标题</h2>
+				<p>{{msg}}</p>
+				<button @click="run()">这是一个按钮</button>
+
+			</div>
+		</script>
+		//注意：模板里面所有的东西要被根元素包裹起来
+		var Header={  /*定义组件*/
+			template:'#header',
+			data: function () {
+				return {
+					msg:'这是header组件内容'
+				}
+			},
+			methods:{
+				run:function(){
+					this.msg='这是header组件内容-我是改变后的值';
+					alert('run');
+				}
+			}
+		};
+
+		注册组件
+		显示组件
+	方法二：使用<template id="footer"></template>
+		<template id="footer">
+			<div class="footer">
+				<h2>这是底部组件的标题</h2>
+				<p>这是一个底部组件的内容</p>
+				<p>这是一个底部组件的内容</p>
+			</div>
+		</template>
+		注册组件
+		显示组件
+十二、父子组件
+	<template id="header">
+		<div>
+			<h2>我是头部组件11</h2>
+			<br/>
+			<hr/>
+			<v-nav></v-nav>
+		</div>
+	</template>
+	<template id="nav">
+		<div>
+			<h2>我是Nav组件</h2>
+		</div>
+	</template>
+	components:{
+		'v-header':{
+			template:'#header',
+			components:{   /*组件里面嵌套组件*/
+				'v-nav':{
+					template:'#nav',
+				}
+			}
+		}
+	}
+十三、父子组件传值--props
+	<!--父亲组件给子组件传数据-->---header
+	<v-nav :msg="msg" :n="name"></v-nav>
+	nav--
+	<template id="nav">
+		<div>
+			<h2>我是Nav组件-----{{msg}}--{{n}}</h2>
+		</div>
+	</template>
+	components:{
+		'v-header':{
+			template:'#header',
+			data:function(){
+				return{
+					msg:'header组件的数据',
+					name:'我是父亲组件的name'
+				}
+			},
+			components:{
+				'v-nav':{
+					props:['msg','n'],  /*子组件接收数据*/
+					template:'#nav'
+				}
+			}
+		}
+	}
+十四、父子组件传值--props--验证
+	<!--父亲组件给子组件传数据-->
+	<v-nav :msg="msg" :num="num" :my-num="aa"></v-nav>
+	//v-header组件中的初始数据
+	data:function(){
+		return{
+			msg:'header组件的数据',
+			//num:10
+			num:'这是一个num类型',
+			aa:10
+		}
+	},
+	、、子组件
+	'v-nav':{
+		//props:['msg','n'],  /*子组件接收数据*/
+		template:'#nav'
+	}
+	//将子组件中的props进行验证
+	props:{
+		msg:String,   /*msg必须是 字符串类型*/
+		num:Number,
+		//myNum:Number
+		myNum:{    /*驼峰方式接收数据     传值的时候要注意  my-num*/
+			type:Number,
+			default:101
+		}
+
+	},
+十五、子组件給父组件传值
+	<template id="header">
+		<div>
+			<h2>我是头部组件---{{msg}}--{{a}}</h2>
+			<br/>
+			<hr/>
+			<v-nav :m="msg" @to-parent="getChildData"></v-nav>
+		</div>
+	</template>
+	<template id="nav">
+		<div>
+			<h2>我是Nav组件--{{m}}</h2>
+			<br/>
+			<br/>
+			<button @click="send()">这是nav组件的button，点击给父组件传值</button>
+		</div>
+	</template>
+	components:{
+			'v-header':{
+				template:'#header',
+				data:function(){
+					return {
+						msg:'这是父亲组件的数据',
+						a:''
+					}
+				},methods:{
+					getChildData:function(msg){  //data就是子组件广播过来的数据
+							//alert(msg);
+						this.a=msg;
+					}
+				},
+				components:{
+					'v-nav':{
+						props:['m'],
+						template:'#nav',
+						data:function(){
+							return {
+								msg:'这是子组件的数据1111'
+							}
+						},
+						methods:{
+							send:function(){
+								//	$emit
+								//alert('111');
+								//this.msg  就是data里面的msg
+								this.$emit('to-parent',this.msg);  /*1.子组件给父亲组件广播数据*/
+							}
+						}
+					}
+				}
+			}
+		}
+十六、非父子组件传值，使用监听
+ 		<v-a></v-a>
+        <v-b></v-b>
+        <v-c></v-c>
+	//定义一个空的实例对象
+    var Event=new Vue();
+    var A={
+        template:'#a',
+        data:function(){
+            return {
+                msg:'这是a组件的数据'
+            }
+        },
+        methods:{
+            send(){
+                Event.$emit('aSend',this.msg);  /*广播数据*/
+            }
+        }
+    };
+      var B={
+            template:'#b',
+            data:function(){
+                return {
+                    msg:'这是B组件的数据11'
+                }
+            },
+            methods:{
+                send:function(){
+                    Event.$emit('bSend',this.msg);  /*广播数据*/
+                }
+            }
+        }
+        var C={
+            template:'#c',
+            data:function(){
+                return {
+                    m:'',
+                    b:''
+                }
+            },
+            mounted:function(){
+                /*接收广播*/
+                var _that=this;
+                Event.$on('aSend',function(msg){
+                    _that.m=msg;
+                });
+                Event.$on('bSend',function(msg){
+                    _that.b=msg;
+                })
+            }
+        }
+	 new Vue({
+            el:'#box',
+            data:{
+                msg:'this is vue'
+            },
+            components:{
+                'v-a':A,
+                'v-b':B,
+                'v-c':C
+            }
+        });
+十七、动态组件
+	<div id="box">
+		{{msg}}
+		<button @click="a='aaa'">aaa组件</button>
+		<button @click="a='bbb'">bbb组件</button>
+		<component :is="a"></component>
+	</div>
+	<template id="aaa">
+		<div>
+			<h2>这是aa组件的标题</h2>
+			<p @click="run">这是aa组件的内容</p>
+		</div>
+	</template>
+	var vm=new Vue({
+			el:'#box',
+			data:{
+				msg:'this is a vue',
+				a:'bbb'
+			},
+			components:{
+				'aaa':{
+					template:'#aaa',
+					methods:{
+						run:function(){
+							alert('这是aaa组件');
+						}
+					}
+				},
+				'bbb':{
+
+					template:'<div>这是bbb组件</div>'
+				}
+			}
+		});

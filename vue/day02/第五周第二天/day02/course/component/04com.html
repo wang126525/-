@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--<HelloWorld ></HelloWorld>-->
+			<v-header></v-header>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * 定义组件
+		 * 
+		 * 注册组件
+		 */
+		
+		new Vue({
+			el:"#app",
+			data:{
+				
+			},
+			components:{
+				"v-header":{
+					template:"<header>这是头部</header>"
+				}
+			}
+		})
+	</script>
+</html>

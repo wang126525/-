@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		//1,对象冒充模式
+		/*function Parent(username){
+	  		this.username = username;
+	  		this.hello = function(){
+			   console.log(this.username);
+			}
+		}
+		function Child(username,password){
+		  //通过以下3行实现将Parent的属性和方法追加到Child中，从而实现继承
+		  //第一步：this.method(可以写别的)是作为一个临时的属性，并且指向Parent所指向的对象，
+		  //第二步：执行this.method方法，即执行Parent所指向的对象函数
+		  //第三步：销毁this.method属性，即此时Child就已经拥有了Parent的所有属性和方法 
+		  this.method = Parent;
+		  this.method(username);//最关键的一行
+		  delete this.method;
+		  this.password = password;
+		  this.world = function(){
+		   console.log(this.password);
+		  }
+		}
+		var parent = new Parent("zhangsan");
+		var child = new Child("lisi","123456");
+//		parent.hello();
+		child.hello();
+//		child.world();*/
+		
+		
+		
+		
+		
+		
+		
+
+
+
+		//2,继承第二种方式：call()方法方式,将父对象的构造函数绑定在子对象上，即在子对象构造函数中加一行代码，如下：
+		/*function animatial(name,color){
+			this.name=name
+			this.color=color
+			this.type='动物'
+			this.adds=function(){
+				console.log(this.name)
+			}
+		}
+		function dog(name,color){
+			animatial.call(this,name,color)//相当于把animatial中的方法属性复制到dog中。call方法的第一个参数的值赋值给类(即方法)中出现的this，call方法的第二个参数开始依次赋值给类(即方法)所接受的参数,父子类的参数要一一对应，不能有偏差。
+			this.add=function(){
+				console.log(this.name+'是一个'+this.color+'的狗')
+			}
+		}
+		var dogs=new dog('Bob','黄色')
+//		console.log(dogs.color)
+		dogs.add()
+		dogs.adds()*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//3、继承的第三种方式：apply()方法方式
+		/*function animatial(name,color,age){
+			this.name=name
+			this.color=color
+			this.age=age
+			this.type='动物'
+			this.adds=function(){
+				console.log(this.name)
+			}
+			this.add=function(){
+				console.log(this.name+'是一个'+this.color+'的狗,今年'+this.age)
+			}
+		}
+		function dog(name,color,age){
+			animatial.apply(this,new Array(name,color,age))//1第一个参数与call方法的第一个参数一样，即赋值给类(即方法)中出现的this,2第二个参数为数组类型，这个数组中的每个元素依次赋值给类(即方法)所接受的参数.父子类的参数要一一对应，不能有偏差。
+		}
+		var dogs=new dog('Bob','黄色',8)
+		console.log(dogs.age)
+		dogs.add()
+		dogs.adds()*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//4、继承的第四种方式：原型链方式，即子类通过prototype将所有在父类中通过prototype追加的属性和方法都追加到Child，从而实现了继承
+//		function Person(){ 
+//			/*this.hello='hello'
+//			this.sayHello=function(){ 
+//		  		console.log(this.hello)
+//			} */
+//		} 
+//		Person.prototype.hello = "hello"; 
+//		Person.prototype.sayHello = function(){ 
+//		  alert(this.hello); 
+//		} 
+//		function Child(){ 
+//			/*this.world='world'
+//			this.sayWorld = function(){ 
+//			  console.log(this.world); 
+//			}*/
+//		} 
+//		Child.prototype = new Person();//这行的作用是：将Parent中将所有通过prototype追加的属性和方法都追加到Child，从而实现了继承 
+//		Child.prototype.world = "world"; 
+//		Child.prototype.sayWorld = function(){ 
+//		  console.log(this.world); 
+//		} 
+//		var c = new Child(); 
+//		c.sayHello(); 
+//		c.sayWorld(); 
+		
+		
+		
+		
+		
+		
+		
+		//5、继承的第五种方式：混合方式.混合了call方式、原型链方式
+		/*function Parent(hello){ 
+			this.hello = hello; 
+		} 
+		Parent.prototype.sayHello = function(){ 
+		  console.log(this.hello); 
+		} 
+		function Child(hello,world){ 
+		  Parent.call(this,hello);//将父类的属性继承过来 
+		  this.world = world;//新增一些属性 
+		} 
+		Child.prototype = new Parent();//将父类的方法继承过来 
+		Child.prototype.sayWorld = function(){//新增一些方法 
+		  console.log(this.world); 
+		} 
+		var c = new Child("zhangsan","lisi"); 
+		c.sayHello(); 
+		c.sayWorld();*/
+	</script>
+</html>

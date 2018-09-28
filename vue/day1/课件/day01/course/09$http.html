@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+  	<ul>
+  	  <li ng-show="isLoading">正在加载</li>
+  	  <li ng-hide="isLoading" ng-repeat = "item in list">
+  	    {{item.goodsName}}
+  	  </li>
+  	</ul>
+	</body>
+	<script>
+	  /*
+	   * ng-model
+	   *   数据的双向绑定
+	   *   
+	   * */
+	  var app = angular.module("app",[]); //M
+	  
+	  //C
+	  //参数不可以更改
+	  app.controller("myCtrl",function($scope,$http){
+	   $scope.list = [];
+	   $scope.isLoading = true;
+	   console.log("1");
+//	   var url = "http://datainfo.duapp.com/shopdata/getclass.php";
+      var url = "http://datainfo.duapp.com/shopdata/getGoods.php?callback=";
+      $http({
+        method: 'GET',
+        url: url
+      }).then(function successCallback(response) {
+          // 请求成功执行代码
+          console.log(response.data);
+           $scope.list = eval(response.data);
+     $scope.isLoading = false;
+        }, function errorCallback(response) {
+          // 请求失败执行代码
+          console.log(response)
+      });
+	  });
+	</script>
+</html>

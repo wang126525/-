@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.test{
+				width: 100px;
+				height: 100px;
+				border: 1px solid #f66;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="test" >
+				<input type="text" @keyup="btnClick($event)"/>
+				<input type="text" v-model="txt" @keyup.enter05按键修饰符.html="btnClick2()"/>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		new Vue({
+			el:"#app",
+			data:{
+				txt:""
+			},
+			methods:{
+				divClick(){
+					console.log("div")
+				},
+				btnClick(ev){
+					console.log(ev.keyCode)
+				},
+				btnClick2(){
+					console.log(this.txt)
+				}
+			}
+		})
+	</script>
+</html>

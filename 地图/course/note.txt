@@ -1,0 +1,33 @@
+1、touch事件
+	touchstart       mousedown
+	touchmove        mousemove
+	touchend         mouseup
+	
+	如果没有tap事件可用时，可以使用touchend事件代替
+	fastclick     <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+		cnpm i fastclick
+	touchend
+	tap
+	
+	面试相关
+		zepto与jQuery的异同？为什么前者体积很小
+		你了解300ms的故事吗？
+		什么是点透现象？
+		做一个类似于海报的，可以在微信中打开的带有动画的应用-----微信场景
+			touchstart、touchmove、touchend、(touchcancel无卵用)
+			touchstart
+				开始点的坐标
+			touchmove
+				时刻记录点的坐标，最后一个坐标就是结束点的坐标
+			touchend
+				结束点的坐标的纵坐标减去开始点的纵坐标，如果值大于0，表示向下滑动，如果值小于0，表示向上滑动
+			
+			点的坐标
+				event.changedTouches[0]
+					{pageX:"",pageY:""}
+
+2、地图
+	google地图     ----   不能用
+	高德地图  http://lbs.amap.com/
+	腾讯地图  http://lbs.qq.com/
+	百度地图  http://lbsyun.baidu.com/

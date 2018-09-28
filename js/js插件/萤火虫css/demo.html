@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+				#bg{
+					background: url(img/bg.jpg)  no-repeat;
+					background-size: cover;
+					width: 100%;
+					height: 100%;
+					position: fixed;
+				}
+				img {
+					width: 18px;
+					height: 18px;
+					position: absolute;
+					
+				}
+		</style>
+
+	</head>
+
+	<body>
+
+		<div id="bg">
+
+		</div>
+
+
+	</body>
+	<script src="img/common.js"></script>
+	<script src="img/animate.js"></script>
+		<script>
+			window.onload=function(evt){
+				
+//				chong(40);
+				var evt=evt||window.event;
+				var cw=document.documentElement.clientWidth||document.body.clientWidth;
+				var ch=document.documentElement.clientHeight||document.body.clientHeight;
+				console.log(cw,ch)
+				for(var i=0;i<100;i++){
+					var left=parseInt(Math.random()*cw);
+					var top=parseInt(Math.random()*ch);
+					chong(1,left,top)
+				}
+				var zuol=[]
+				var zuot=[]
+				var bg=document.getElementById('bg')
+				var imgs=bg.getElementsByTagName('img')
+//				console.log(zuol,zuot)
+//				console.log(zuol[39],zuot[39])
+				setInterval(function(){
+					for(let n=0;n<100;n++){
+						var left1=parseInt(Math.random()*cw);
+						var top1=parseInt(Math.random()*ch);	
+						animate(imgs[n],{left:left1,top:top1});
+						
+					}
+			
+				},2000)
+			
+//			创建萤火冲
+				function chong(num,left,top){
+					for (var i=0;i<num;i++) {
+						
+						var bg=document.getElementById('bg')
+						var img=document.createElement('img');
+						img.src='img/1.jpg'
+						bg.appendChild(img)
+						img.style.position='absolute';
+						img.style.left=left+'px';
+						img.style.top=top+'px';
+					}
+				}
+				
+				
+//				两个点间的移动
+				
+			}
+		</script>
+</html>

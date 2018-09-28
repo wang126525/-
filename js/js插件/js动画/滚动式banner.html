@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>滚动式banner</title>
+		<style>
+			*{margin: 0;padding: 0;}
+			ul,li{list-style: none;}
+			.box{width: 1000px;height:500px ;
+					overflow: hidden;
+					position: relative;
+					margin: 0 auto;
+			}
+			.imgs{
+				width: 50000px;height: 300px;
+				position: absolute;top: 0;left: 0;
+				
+			}
+			.imgs li img{
+				width: 1000px;height: 500px;float: left;
+			}
+			.imgs li{float: left;}
+			.left{
+				position: absolute;
+				top: 225px;left: 0px;
+				opacity: .5;
+				width: 100px;height: 50px;
+				border-radius: 50%;
+			}
+			.right{
+				position: absolute;
+				top: 225px;right: 0px;
+				opacity: .5;
+				width: 100px;height: 50px;
+				border-radius: 50%;
+			}
+			.lis{width: 160px;height: 20px;display: flex;justify-content: space-around;
+					position: absolute;bottom: 0;left: 420px;
+			}
+			.lis li{float: left;width: 20px;height: 20px;background:yellow;
+					border-radius: 50%;text-align: center;
+					
+			}
+		</style>
+		<script src="common.js"></script>
+		<script src="animateBak.js"></script>
+		
+		<script>
+			window.onload=function(){
+				var  ul=document.getElementsByClassName('imgs')[0];
+				var li=ul.getElementsByTagName('li');
+				var newli=document.createElement('li');
+				ul.appendChild(newli);
+				var nimg=document.createElement('img');
+				nimg.src=li[0].firstElementChild.src;
+				newli.appendChild(nimg);
+				var left=document.getElementsByClassName('left')[0];
+				var right=document.getElementsByClassName('right')[0];
+				var i=0
+				right.onclick=function(){
+					if(i==4){
+						ul.style.left=0+'px'
+						i=0
+					}
+					
+					i++
+					if(i==4){
+						bianse(0)
+					}else{
+						bianse(i)
+					}
+					animate(ul,{left:-1000*i})
+					console.log(i,'a')
+					
+					
+				}
+				left.onclick=function(){
+					if(i==0){
+						ul.style.left=-4000+'px'
+						console.log(i,'left')
+						i=4
+					}
+					
+					i--
+					bianse(i)
+					animate(ul,{left:-1000*i})
+					console.log(i,'a')
+				}
+//				鼠标在box上/让他自己动
+				var time=setInterval(function(){
+					right.onclick()
+				},1000)
+				
+//				鼠标在上面时不认动
+				var div=document.getElementsByClassName('box')[0];
+				div.onmousemove=function(){
+					clearInterval(time);
+				}
+				div.onmouseleave=function(){
+					time=setInterval(function(){
+						right.onclick()
+					},1000)
+				}
+				
+				
+//				指定的位置变色
+				
+				function bianse(index){
+					var lis=document.getElementsByClassName('lis')[0];
+					var li=lis.getElementsByTagName('li')
+					for (var  n=0;n<li.length; n++){
+						li[n].style.background='yellow'
+					}
+					li[index].style.background='#fff'
+				}
+				var lis=document.getElementsByClassName('lis')[0];
+				var li=lis.getElementsByTagName('li')
+				
+				for (let j=0;j<li.length;j++){
+					li[j].onmouseenter=function(){
+						bianse(j)
+						animate(ul,{left:-1000*j})
+						i=j
+					}
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div class="box">
+			<ul class="imgs">
+				<li><img src="images/7.jpg"/></li>
+				<li><img src="images/8.jpg"/></li>
+				<li><img src="images/9.jpg"/></li>
+				<li><img src="images/10.jpg"/></li>
+			</ul>
+			<button class="left">向左</button>
+			<button class="right">向右</button>
+			<ul class="lis">
+				<li style="background: #fff;">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+			</ul>
+		</div>
+	</body>
+</html>

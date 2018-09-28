@@ -1,0 +1,26 @@
+@import "main.scss";
+
+#searchhead{
+    position: relative;
+    span{
+        position: absolute;
+        top: 0px;
+        left: -70%;
+    }
+}
+
+#sou{
+    width: 90%; height: 50px;
+    margin: 50px auto;
+    @include displayflex;
+    input[type=text]{
+        flex: 1;
+        text-indent: 9px;
+       
+    }
+    input[type=button]{
+        width: 50px;
+       
+    }
+}
+

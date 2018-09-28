@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="axios.min.js"></script>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<button @click = "getData()">获取数据</button>
+			<ul>
+				<li v-for = "item in list">{{item.goodsName}}</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var wv = new Vue({
+			el:"#app",
+			data:{
+				list:[]
+			},
+			methods:{
+				getData(){
+					var that = this;
+//					var url = "http://datainfo.duapp.com/shopdata/getclass.php";
+					var url = "http://datainfo.duapp.com/shopdata/getGoods.php?callback=";
+					axios.get(url)
+			           .then(function (response) {
+			               	console.log(eval(response.data));
+						   	that.list = eval(response.data);
+			           })
+			           .catch(function (error) {
+			               console.log(error);
+			           });
+				}
+			}
+		})
+		
+		
+	</script>
+</html>

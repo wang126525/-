@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--<input type="text" v-model = "search" @keyup="getData()"/>-->
+			<input type="text" v-model = "search" />
+			<ul>
+				<li v-for = "item in list">
+					{{item}}
+				</li>
+			</ul>
+			{{newList}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		var wv = new Vue({
+			el:"#app",
+			data:{
+				list:[],
+				search:""
+			},
+			methods:{
+				getData(){
+			        var url = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?";
+			        this.$http.jsonp(url,{
+			        	jsonp:"cb",
+			        	params:{
+			        		wd:this.search
+			        	}
+			        }).then(function (response) {
+			               	console.log(response.body.s);
+			               	this.list = response.body.s;
+			           },function(err){
+			           		console.log(err);
+			           })
+				}
+			},
+			computed:{
+				newList:function(){
+					  var url = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su";
+			       	var arr = "";
+			       this.$http.jsonp(url,{
+			        	jsonp:"cb",
+			        	params:{
+			        		wd:this.search
+			        	}
+			        }).then(function (response) {
+			               	console.log(response.body.s);
+			               	this.list = response.body.s;
+			               	
+			           },function(err){
+			           		console.log(err);
+			           })
+					console.log(arr)
+					return arr;
+				}
+			}
+		})
+		
+		
+	</script>
+</html>

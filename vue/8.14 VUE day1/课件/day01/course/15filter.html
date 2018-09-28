@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			{{num | ageStr}}
+			<ul>
+				<li v-for = "item of list">{{item.name}}----{{item.age | ageStr}}---{{item.sex | sexStr}}</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		Vue.filter("ageStr",function(value){
+			return value + "岁";
+		});
+		Vue.filter("sexStr",function(value){
+			if(value == 0){
+				return "男";
+			}else if(value == 1){
+				return "女";
+			}
+		});
+		var wv = new Vue({
+		  el:"#app",
+		  data:{
+		  	num:100,
+		  	list:[{
+					name:"张三",
+					age:30,
+					sex:0
+				},
+				{
+					name:"李四",
+					age:30,
+					sex:1
+				},{
+					name:"王五",
+					age:30,
+					sex:1
+				}],
+		  },
+		  methods:{
+		  	
+		  }
+		
+		})
+		
+//		wv.$watch("search",function(newVal,oldVal){
+//			console.log(newVal+"---"+oldVal)
+//		});
+	</script>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  {{ num | currency : "￥"}}
+	  <br />
+	  {{ name | lowercase}}
+	  <br />
+    {{ name | uppercase}}
+    <button ng-click = "updateData('price')">价格排序</button>
+    <button ng-click = "updateData('num')">数量排序</button>
+    <input type="text" ng-model = "test" />
+    <ul>
+    	<li ng-repeat = "item in list | filter:test  | orderBy : sortType">
+    	  {{item.name}}有{{item.num}},价格为{{item.price}},是{{item.type | myFileter}}
+    	</li>
+    </ul>
+	</body>
+	<script>
+	  /*
+	   * filter
+	   *   默认的filter
+	   *   currency 货币过滤器     num | currency : "￥"
+	   *   lowercase 格式化字符串为小写。
+          orderBy 根据某个表达式排列数组。
+                        后面的值为本对象的某一个属性
+          uppercase 格式化字符串为大写。
+	   *   
+	   * */
+	  var app = angular.module("app",[]); //M
+	  
+	  app.filter("myFileter",function(){
+	    return function(val){
+	      if(val == 0){
+	        return "豪车"
+	      }else if(val == 1){
+	        return "好车"
+	      }
+	    }
+	  })
+	  //C
+	  //参数不可以更改
+	  app.controller("myCtrl",function($scope){
+	    $scope.num = 100;
+	    $scope.name = "liuChengHao";
+	    $scope.sortType = "num";
+	    $scope.list = [{
+	      name:"宝马",
+	      num:100,
+	      price:2000,
+	      type:0
+	    },
+	    {
+        name:"奔驰",
+        num:300,
+        price:3000,
+         type:0
+      },{
+        name:"奥迪",
+        num:200,
+        price:1500,
+         type:0
+      },{
+        name:"奥拓",
+        num:50,
+        price:2500,
+         type:1
+      }];
+      
+     $scope.updateData = function(type){
+       $scope.sortType = type
+     }
+	  });
+	</script>
+</html>

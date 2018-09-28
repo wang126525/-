@@ -1,0 +1,46 @@
+一、react-router
+	参考资料：http://www.uprogrammer.cn/react-router-cn/index.html
+二、安装react-router
+	cnpm i react-router -D
+	注意事项：
+		版本问题：安装时候建议安装 cnpm i react-router@3 -D
+三、使用
+	引入 import { Router,Route,Link,hashHistory } from "react-router"; 
+		hashHistory 是在3系列之后必须写的，
+	准备基本的几个组件Home、Kind、Cart、User
+		import React from "react";
+		class App extends React.Component{
+			constructor(props){
+				super(props);
+			}
+			render(){
+				return (
+					<div>
+						首页
+					</div>
+				)
+			}
+		}
+		export default App;
+	配置路由
+	//http://www.uprogrammer.cn/react-router-cn/docs/API.html#getchildrouteslocation-callback
+		ReactDOM.render(路由规则,dg("app"));
+	路由规则
+		<Router history = {hashHistory}>
+			//跟路由 path--取得标识的名字，component---组件的名称
+			<Route path="/ component = {App}> 
+				<Route path="index" component = {Home}/> 
+				<Route path ="kind" component = {Kind}/>
+				<Route path ="cart" component = {Cart}/>
+				<Route path ="user" component = {User}/>
+			</Route>
+		</Router>
+	使用路由
+		在需要的地方，通过以下两种方式来使用
+			<Link to="/index">首页</Link>
+			<a href="#/user">我的</a>
+	注意：如果需要给点击的选项添加样式，那么可以通过如下方式使用activeStyle={ACTIVE}
+		var ACTIVE = {
+			color:"#f66"
+		}
+		<Link to="/index" activeStyle={ACTIVE}>首页</Link>

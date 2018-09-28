@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>评星</title>
+		<style>
+			li{
+				float: left;
+				list-style: none;
+				width: 27px;
+				height: 27px;
+				background: url(star.gif)
+			}
+			.light{
+				background-position: 0 -29px;
+			}
+		</style>
+		<script>
+			window.onload=function(){
+//				var li=document.getElementsByTagName('li');
+//				for(let i=0;i<li.length;i++){
+//					li[i].onmousemove=function(){
+//						for(var j=0;j<li.length;j++){
+//							if(j<=i){
+//								li[j].className='light'
+//							}else{
+//								li[j].className='';
+//							}
+//						}
+//					}
+//				}
+				
+				var li=document.getElementsByTagName('li');
+				var t=true
+				for(let i=0;i<li.length;i++){
+					li[i].onmouseenter=function(){
+						t=true
+						
+						for(var j=0;j<li.length;j++){
+							if(j<=i){
+								li[j].className='light'
+							}else{
+								li[j].className='';
+							}
+						}
+						console.log(i)
+						li[i].onclick=function(){
+							for(var j=0;j<=i;j++){
+								console.log(i)
+							 t=false
+								li[j].className='light'
+							}
+						}
+					}
+					
+					
+						li[i].onmouseleave=function(){
+							console.log(t)
+							if(t==true){
+								for(var j=1;j<li.length;j++){
+									li[j].className=''
+								}
+							}
+						}
+					
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<ul>
+			<li class="light"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</body>
+</html>

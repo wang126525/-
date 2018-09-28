@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  	<button data-goodsID = "1" classid = "2" ng-click = "test($event)">点击事件</button>
+	</body>
+	<script>
+	  /*
+	   * 事件
+	   *   ng-click = "test()"
+	   * 
+	   * 定义
+	   *   控制器内部
+	   *     $scope.test = function(){
+	   *       console.log("111")
+	   *     }
+	   * */
+	  var app = angular.module("app",[]); //M
+	  
+	  //C
+	  //参数不可以更改
+	  app.controller("myCtrl",function($scope){
+	    $scope.test = function(ev){
+	      console.log("angularjs 事件绑定");
+	      console.log("goodsid",ev.target.dataset.goodsid);
+	      console.log(ev.target.getAttribute("classid"))
+	    }
+	  });
+//	  app.controller("myCtrl1",function($scope){
+//    $scope.msg1 = "hello angularjs1";//设置变量    访问通过 {{msg}}即可
+//  });
+	</script>
+</html>

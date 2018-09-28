@@ -1,0 +1,286 @@
+六、vue 路由
+	API：http://router.vuejs.org/zh-cn/
+	第一步、引入vue-router
+	第二步、编写路由--html
+		<p>
+			<!-- 使用 router-link 组件来导航. -->
+		    <!-- 通过传入 `to` 属性指定链接. -->
+		    <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+		    <router-link to="/foo">Go to Foo</router-link>
+		    <router-link to="/bar">Go to Bar</router-link>
+	  	</p>
+	  	<!-- 路由出口 -->
+		<!-- 路由匹配到的组件将渲染在这里 -->
+		<router-view></router-view>
+	第三步、配置路由--js
+			// 0. 如果使用模块化机制编程，導入Vue和VueRouter，要调用 Vue.use(VueRouter)
+			// 1. 定义（路由）组件。
+			// 可以从其他文件 import 进来
+				const Foo = { template: '<div>foo</div>' }
+				const Bar = { template: '<div>bar</div>' }
+			
+			// 2. 定义路由
+			// 每个路由应该映射一个组件。 其中"component" 可以是
+			// 通过 Vue.extend() 创建的组件构造器，
+			// 或者，只是一个组件配置对象。
+			// 我们晚点再讨论嵌套路由。
+				const routes = [
+				  { path: '/foo', component: Foo },
+				  { path: '/bar', component: Bar },
+				  { path: '*', redirect: '/news' }  /*路由的重定向*/
+				]
+			// 3. 创建 router 实例，然后传 `routes` 配置
+			// 你还可以传别的配置参数, 不过先这么简单着吧。
+				const router = new VueRouter({
+				  routes // （缩写）相当于 routes: routes
+				})
+			// 4. 创建和挂载根实例。
+			// 记得要通过 router 配置参数注入路由，
+			// 从而让整个应用都有路由功能
+				const app = new Vue({
+				  router
+				}).$mount('#app')
+			或者
+				 var app=new Vue({
+			        router:router,
+			        el:'#app'
+			    })
+			// 现在，应用已经启动了！
+			
+七、路由传参
+	场景：模拟首页、新闻页（包含新闻列表，点击实现跳转到详情页，然后可以点击返回到列表页）
+	传参思想与angular类似
+	第一步、定义基本路由
+		<router-link to="/home">去首页</router-link>
+	    <router-link to="/news">去新闻</router-link>
+	    <router-view></router-view>
+	第二步、创建新闻列表页面----在路由之后添加参数即可
+		<template id="news">
+		    <div>
+		        <div>这是一个新闻的页面---新闻列表页面</div>
+		        <router-link to="/newscontent/123">去新闻详情111</router-link>
+		        <router-link to="/newscontent/456">去新闻详情456</router-link>
+		    </div>
+		</template>
+		<template id="newscontent">
+		    <div>
+		        <div>这是一个新闻的详情页面---{{$route.params.aid}}</div>
+		        <router-link to="/news">返回</router-link>
+		    </div>
+		</template>
+	第三步、定义HOME组件、新闻组件,详情组件
+		var Home={
+	        template:'<div>这是一个首页的页面</div>'
+	    }
+	    var News={
+	        template:'#news'
+	    }
+	    var NewsContent={
+	        template:'#newscontent',
+	        mounted:function(){
+	
+	            console.log(this.$route.params.aid);
+	        }
+	    }
+	第四步、配置路由
+		var rotues = [
+			{path:"/home",component:Home},
+			{path:"/news",component:News},
+			{path:"/newscontent/:aid",component:NewsContnet},
+			{path:"*",redirect:"/news"}
+		]
+	第五步、实例化vueRouter
+		var router = new VueRouter({
+			routes:routes
+		})
+	第六步、将vueRouter挂载到Vue实例上
+		var app = new Vue({
+			router:router,
+			el:"#app"
+		})
+八、子路由与子路由传参
+	第一步、设置路由
+        <router-link to="/home">首页</router-link>
+        <router-link to="/user">用户</router-link>
+        <!--子路由视图显示的地方-->
+        <router-view></router-view>
+       第二步、设置用户模板
+       	<template id="user">
+		    <div>
+		        <h2>
+		            这是一个用户的页面
+		        </h2>
+		        <router-link to="user/username">去子路由</router-link>
+		        <!--子路由视图显示的地方-->
+		        <router-view></router-view>
+		    </div>
+		</template>
+	第三步、定义必须的组件--Home ---User -- UserName
+		var Home={
+	        template:'<div>这是一个首页的页面</div>'
+	    }
+	    var User={
+	        template:'#user'
+	    }
+	    var UserName={
+	        template:'<div>这是具体的用户</div>'
+	    }
+	第三步、配置路由定义路由
+		var rotues = [
+			{path:"/home",component:Home},
+			{
+				path:"/user",componet:User,
+				"children":[
+					{//注意，子路由前面不加斜杠
+						path:"username":component:UserName
+					}
+				]
+			},
+			{ path: '*', redirect: '/home' }  /*路由的重定向*/
+		]
+	第四步、实例化VueRouter
+		var router = new VueRouter({
+			routes:routes
+		})
+	第五步、挂载
+		var vw = new Vue({
+			router:router,
+			el:"#app"
+		})
+		
+	第六步、传参---配置动态子路由
+		修改user的template
+			<template id="user">
+			    <div>
+			        <h2>
+			            这是一个用户的页面
+			        </h2>
+			        <router-link to="/user/zhangsan/age/20">张三</router-link>
+			        <router-link to="/user/lisi/age/22">李四</router-link>
+			        <!--子路由视图显示的地方-->
+			        <router-view></router-view>
+			    </div>
+			</template>
+		在配置路由中修改用户的子路由
+			'children':[   /*定义自组件的路由*/
+                {
+                    path:':username',component:UserName,    
+                }
+            ]
+      	修改组件UserName
+      		var UserName={
+		        template:'<div>这是具体的用户 {{$route.params.username}}</div>'
+		    }
+	如果需要传递别的参数，比如说年龄
+		 <router-link to="/user/zhangsan/age/20">张三</router-link>
+        <router-link to="/user/lisi/age/22">李四</router-link>
+		'children':[   /*定义自组件的路由*/
+                {
+                    path:':username/age/:age',component:UserName,    
+                }
+            ]
+        var UserName={
+		        template:'<div>这是具体的用户 {{$route.params}}</div>'
+		    }
+九、命名路由
+	在vue实例中的data数据无法绑定到新闻列表中
+	data:{
+		newsid:123
+	}        
+	通过以下方式无法实现
+	<router-link to="/newscontent/aid">去新闻详情</router-link>
+	
+	那么就需要給配置路由添加一个name属性
+	var  routes=[
+        {path:'/home',name:'home',component:Home},
+        {path:'/news',name:'news',component:News},
+      {path:'/newscontent/:aid',name:'newscontent',component:NewsContent},
+        { path: '*', redirect: '/home' }  /*路由的重定向*/
+    ]
+    
+	重新定义路由即可，可以传入参数
+		 <router-link :to="{name:'home'}">去首页</router-link>
+        <router-link :to="{name:'news'}">去新闻</router-link>
+        <router-link :to="{name:'newscontent',params:{aid:newsid}}">去新闻详情</router-link>
+十、多视图路由
+<!--  // 有时候想同时（同级）展示多个视图，而不是嵌套展示，例如创建一个布局，有 sidebar（侧导航） 和 main（主内容） 两个视图，这个时候命名视图就派上用场了。你可以在界面中拥有多个单独命名的视图，而不是只有一个单独的出口。如果 router-view 没有设置名字，那么默认为 default。-->
+	在页面中每个页面中既添加头部，又添加内容区域，或者底部
+	<router-view></router-view>
+    <router-view name="page"></router-view>
+    <router-view name="footer"></router-view>
+     var  routes=[
+
+        {path:'/home',
+            name:'home',
+            components:{
+                default:Header,
+                page:Home,
+                footer:HomeFooter
+            }
+        },
+        {   path:'/news',
+            name:'news',
+            components:{
+                default:Header,
+                page:News,
+                footer:NewsFooter
+            }
+        },
+        { path: '*', redirect: '/home' }  /*路由的重定向*/
+    ]
+
+命令行工具
+	cnpm i vue-cli -g
+	创建一个基于 webpack 模板的新项目   (webpack  更改为 webpack-simple)
+	 vue init webpack-simple my-app
+	 vue init webpack my-new-app
+	 
+mint-ui
+	https://mint-ui.github.io/docs/#/zh-cn2
+	
+	cnpm i mint-ui -S           注意版本的问题   transform-runtime
+	
+	cnpm install babel-plugin-component -D
+		将 .babelrc 修改为：
+			{
+			  "presets": [
+			    ["es2015", { "modules": false }]
+			  ],
+			  "plugins": [["component", [
+			    {
+			      "libraryName": "mint-ui",
+			      "style": true
+			    }
+			  ]]]
+			}
+	
+	app.js
+	import MintUI from 'mint-ui'
+	import 'mint-ui/lib/style.css'
+	Vue.use(MintUI);
+	
+	import { Toast } from 'mint-ui';
+	Toast('提示信息');
+	
+
+	actionsheet  ---  通过改变sheetVisible的真假显示与隐藏actionsheet
+		https://mint-ui.github.io/docs/#/zh-cn2/action-sheet
+		import { Actionsheet } from 'mint-ui';
+		Vue.component(Actionsheet.name, Actionsheet);
+		
+		<mt-actionsheet
+		  :actions="actions"
+		  v-model="sheetVisible">
+		  {{sheetVisible}}
+		</mt-actionsheet>
+		
+		data:
+			sheetVisible:false,
+			actions:[
+				{name:"拍照",method:function(){
+					console.log("拍照")
+				}},
+				{name:"选取",method:function(){
+					console.log("选取")
+				}},
+			]

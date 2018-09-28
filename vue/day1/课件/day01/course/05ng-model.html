@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  <input type="text" ng-model = "msg" /> {{msg}}
+	</body>
+	<script>
+	  /*
+	   * ng-model
+	   *   数据的双向绑定
+	   *   
+	   * */
+	  var app = angular.module("app",[]); //M
+	  
+	  //C
+	  //参数不可以更改
+	  app.controller("myCtrl",function($scope){
+	    $scope.msg = "";
+	  });
+	</script>
+</html>

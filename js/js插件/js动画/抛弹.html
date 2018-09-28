@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0px;}
+			div{width: 20px;height: 20px;border-radius: 50%;background: red;
+				border: 1px solid #000;position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<script>
+			window.onload=function(){
+				var div=document.getElementsByTagName('div')[0];
+				document.onclick=function(evt){
+					var evt=evt||window.event;
+					var w=document.documentElement.clientWidth||document.body.clientWidth;
+					var h=document.documentElement.clientHeight||document.bady.clientHeight;
+					console.log(h,w)
+					
+					var speenx=10
+					var sp=10
+					
+					div.time=setInterval(function(){
+						var l=div.offsetLeft+speenx
+						var t=div.offsetTop+sp
+						console.log(t)
+						div.style.left=l+'px';
+						div.style.top=t+'px';
+						if(div.offsetLeft > w-div.offsetWidth || div.offsetLeft<0){
+						
+						speenx=speenx*-1
+						
+						}
+
+						console.log(h,w)
+						if(div.offsetTop>h-div.offsetHeight || div.offsetTop<0){
+								sp=sp*-1
+							console.log(div.offsetLeft)}
+						},30);
+						
+					
+							
+						
+					
+						
+						
+					
+				}
+			}
+		</script>
+	</body>
+</html>

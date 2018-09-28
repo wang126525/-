@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>手风琴</title>
+		<style>
+			.box{
+				width: 700px;height: 260px;
+				border: 1px solid #000;
+				margin: 100px auto;
+				display: flex;
+			}
+			.tu{
+				flex: auto;
+				float: left;
+				width: 100px;height: 260px;
+			
+				background-position: center;
+				background-repeat: no-repeat;
+				
+			}
+			.cover{
+				width: 100%;height: 100%;
+				background: #000;
+				opacity: .3;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="tu"><div class="cover"></div></div>
+			<div class="tu"><div class="cover"></div></div>
+			<div class="tu"><div class="cover"></div></div>
+			<div class="tu"><div class="cover"></div></div>
+			<div class="tu"><div class="cover"></div></div>
+			<div class="tu"><div class="cover"></div></div>
+			<div class="tu"><div class="cover"></div></div>
+			
+		</div>
+	</body>
+	<script src="../../jquery-1.11.3.min.js"></script>
+	<script>
+		$(function(){
+			$('.tu').each(function(index,value){
+				var index=index+1
+//				console.log(value)
+				value.style.backgroundImage='url('+index+'.jpg)'
+			})
+			$('.tu').hover(function(){
+				console.log($(this))
+				$('.tu').stop(true,false)
+				$('.tu').not($(this)).animate({
+					width:'50px'
+				})
+				$(this).animate({
+					width:'400px'
+				})
+				$('.cover').stop(true)
+				$('.cover').eq($(this).index()).animate({
+					opacity:'0'
+				},20)
+				
+			},function(){
+				$('.tu').stop(true,false)
+				$('.tu').animate({
+					width:'100px'
+				})
+				$('.cover').stop(true)
+				$('.cover').animate({
+					opacity:'.3'
+				},1000)
+				
+			})
+		})
+	</script>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;padding: 0;
+			}
+			ul,li{
+				list-style: none;
+			}
+		li img{
+			width: 100px;height:50px;float: left;margin: 10px;
+		}
+		.box img{width: 500px;height: 300px;}
+		.box{
+			width: 500px;height: 300px;position: relative;
+		}
+		.box2{
+			width: 500px;height: 300px;background: pink;
+			position: absolute;
+			top: 0px;left: 550px;
+			overflow: hidden;
+			display: none;
+		}
+		.cover{
+			width: 200px;height: 150px;background: blue;
+			position: absolute;top: 0px;left: 0px;
+			opacity: .5;
+			display: none;
+			
+		}
+		.tu{
+			position: absolute;
+			top: 0;
+			left: 550px;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<img src="img/fangda1.jpg" />
+			<div class="cover"></div>
+			
+		</div>
+		<div class="box2"><img class="tu" src="img/fangda1.jpg" /></div>
+		<ul>
+			<li><img src="img/fangda1.jpg"/></li>
+			<li><img src="img/fangda2.jpg"/></li>
+			<li><img src="img/fangda3.jpg"/></li>
+		</ul>
+	</body>
+	<script>
+		window.onload=function(){
+			var cover=document.getElementsByClassName('cover')[0];
+			var box=document.getElementsByClassName('box')[0];
+			var box2=document.getElementsByClassName('box2')[0];
+			var tu=document.getElementsByClassName('tu')[0];
+		
+			var img=box.getElementsByTagName('img')[0];
+			box.onmouseenter=function(){
+				cover.style.display='block';
+				box2.style.display='block';
+					
+			var width=box2.offsetWidth*box.offsetWidth/cover.offsetWidth;
+			var height=box2.offsetHeight*box.offsetHeight/cover.offsetHeight;
+			tu.style.width=width+'px';
+			tu.style.height=height+'px';
+			console.log(cover.offsetWidth)
+			}
+			box.onmouseleave=function(){
+				cover.style.display='none';
+				box2.style.display='none';
+			}
+			box.onmousemove=function(evt){
+				var evt=evt||window.event;
+				var left=evt.pageX-box.offsetLeft-cover.offsetWidth/2;
+				var top=evt.pageY-box.offsetTop-cover.offsetHeight/2;
+				if(left<0){
+					cover.style.left='0px';
+					left=0
+				}else if(left>=box.offsetWidth-cover.offsetWidth){
+					left=box.offsetWidth-cover.offsetWidth;
+						cover.style.left=box.offsetWidth-cover.offsetWidth+'px'
+						console.log(box.offsetWidth-cover.offsetWidth)
+				}else{
+					cover.style.left=left+'px'
+				}
+				
+				if(top<0){
+					top=0;
+					cover.style.top='0px';
+				}else if(top>=box.offsetHeight-cover.offsetHeight){
+					top=box.offsetHeight-cover.offsetHeight
+						cover.style.top=box.offsetHeight-cover.offsetHeight+'px'
+						
+				}else{
+					cover.style.top=top+'px';
+				}
+				var left1=left*box2.offsetWidth/cover.offsetWidth
+				var top1=top*box2.offsetHeight/cover.offsetHeight;
+//				console.log(left1,top1)
+//				tu.style.position='absolute'
+				tu.style.top=-top1+'px';
+				tu.style.left=-left1+'px';
+			}
+			var ul=document.getElementsByTagName('ul')[0];
+			var img=ul.getElementsByTagName('img');
+			var tu1=box.getElementsByTagName('img')[0];
+			for(let i=0;i<img.length;i++){
+				img[i].onclick=function(){
+					tu.src=img[i].src;
+					tu1.src=img[i].src;
+				}
+			}
+		}
+	</script>
+</html>

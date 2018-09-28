@@ -1,0 +1,72 @@
+1、zepto.js
+	http://www.zeptojs.cn/
+	Zepto是用于现代浏览器的简约JavaScript库，具有大部分与 jQuery兼容的API。 如果你使用jQuery，你已经知道如何使用Zepto。
+	jQuery用在PC端，zepto用在移动端，但是没有绝对性
+	默认模块
+		zepto	✔	核心模块；包含许多方法
+		event	✔	通过on()& off()处理事件
+		ajax	✔	XMLHttpRequest 和 JSONP 实用功能
+		form	✔	序列化 & 提交web表单
+		ie		✔	增加支持桌面的Internet Explorer 10+和Windows Phone 8。
+	你想要做动画  aniamte
+		fx		    The animate()方法
+		fx_methods	以动画形式的 show, hide, toggle, 和 fade*()方法.
+	
+	也可以使用cnpm i zepto 下载
+		dist中的是zepto.js 和zepto.min.js
+		src中的是各个模块
+	自带touch.js中的swipe滑动事件无效，所以不要使用它
+	
+2、touch.js
+	https://www.awesomes.cn/repo/Clouda-team/touchjs
+	cnpm install touchjs
+	
+	支持的手势事件类型：
+
+	分类			参数			描述
+	缩放		pinchstart	缩放手势起点
+			pinchend	缩放手势终点
+			pinch		缩放手势
+			pinchin		收缩
+			pinchout	放大
+	旋转		rotateleft	向左旋转
+			rotateright	向右旋转
+			rotate		旋转
+	滑动		swipestart	滑动手势起点
+			swiping		滑动中
+			swipeend	滑动手势终点
+			swipeleft	向左滑动
+			swiperight	向右滑动
+			swipeup		向上滑动
+			swipedown	向下滑动
+			swipe		滑动
+	拖动开始	dragstart	拖动屏幕
+	拖动		drag		拖动手势
+	拖动结束	dragend		拖动屏幕
+	长按		hold		长按屏幕
+	敲击		tap			单击屏幕
+			doubletap	双击屏幕
+
+
+3、swiper
+	http://www.swiper.com.cn/
+	
+	一般选项
+		direction：horizontal、vertical
+		autoplay:3000
+		autoplayDisableOnInteraction:false
+	loop
+		loop:true
+	回调函数
+		onInit(swiper)
+		onSlideChangeEnd(swiper)回调函数，swiper从一个slide过渡到另一个slide结束时执行。
+			swiper.activeIndex
+	methods
+		mySwiper.slideTo(index, speed, runCallbacks)
+			Swiper切换到指定slide。
+			index:必选，num，指定将要切换到的slide的索引。
+			speed:可选，num(单位ms)，切换速度
+			runCallbacks:可选，boolean，设置为false时不会触发onSlideChange回调函数	
+	
+
+	div.swiper-container#mySwiper>div.swiper-wrapper>div.swiper-slide{第$个}*5

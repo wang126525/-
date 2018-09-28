@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+        <script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+    </head>
+    <style>
+        .border-red{
+            border-color: red;
+            border:1px solid red;
+        }
+        .border-blue{
+            border-color: blue; border:1px solid blue;
+        }
+    </style>
+    <body>
+        <div id="app">
+            <input type="text" v-bind:class="{'border-red': isshow}" v-model="name" placeholder="姓名"/>
+            <input type="password" v-model="password" placeholder="密码" :class="{'border-blue':isshow}"/>
+            <button v-on:click="add()">添加</button>
+            <div v-if="isshow">正在加载</div>
+            <ul>
+                <li v-for="(it,index) in arr">
+                    <span>{{it.name}}</span>
+                    <span>{{it.password}}</span>
+                    <span v-on:click="dalate(index)">删除{{index}}</span>
+                </li>
+            </ul>
+        </div>
+    </body>
+    <script>
+        var vue=new Vue({
+            el:"#app",
+            data:{
+                name:"",
+                password:"",
+                arr:[],
+                isshow:false
+            },
+            methods:{
+                add(){
+                    this.isshow=true;
+                    var that=this
+                    setTimeout(function(){
+                        var obg={
+                            name:that.name,
+                            password:that.password
+                        }
+
+                        that.arr.push(obg)
+                         that.isshow=false
+                    },1000)
+                   
+                    
+                },
+                dalate(index){
+                    console.log(index)
+                   this.arr.splice(index,1);
+                }
+            }
+           
+        })
+
+    </script>
+</html>

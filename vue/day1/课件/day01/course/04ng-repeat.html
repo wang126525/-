@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  	<ul>
+	  		<li ng-repeat = "item in list">{{item}} ----- {{$index}}</li>
+	  	</ul>
+	  	<ul>
+        <li ng-repeat = "item in cars">{{item.brand}} ----- {{$index}}
+            <ul>
+              <li ng-repeat = "it in item.kind">{{it}} --- {{$index}} ----父级索引值{{$parent.$index}}</li>
+            </ul>
+        </li>
+      </ul>
+	</body>
+	<script>
+	  /*
+	   * 循环
+	   *   ng-repeat = "item in list"
+	   * 
+	   * 索引值
+	   *   （item,index） in list   ×××××
+	   *     $index   √ √ √ √
+	   * 如果是双层循环，希望在内层访问到外层的索引值
+	   *   
+	   * */
+	  var app = angular.module("app",[]); //M
+	  
+	  //C
+	  //参数不可以更改
+	  app.controller("myCtrl",function($scope){
+	    $scope.list = [1,2,3,4,5,6,7];
+	    $scope.cars = [{
+                  brand:"宝马",
+                  kind:["X5","X6","X51","X61"]
+                },{
+                  brand:"奥迪",
+                  kind:["Q3","A8","Q31","A81"]
+                }]
+	    
+	  });
+	</script>
+</html>

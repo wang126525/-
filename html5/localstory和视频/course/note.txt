@@ -1,0 +1,99 @@
+一、webStorage
+	localStorage   ----  永久存储  --- 电商类、app登录
+	sessionStorage ----  临时存储  --- 金融类、手机银行
+二、localStorage 与 cookie 的区别
+	二者都是存储信息与本地，可以加快我们网页的加载速度
+	区别
+		客户端、服务端   cookie二者都可以，localStorage只在客户端
+		大小                                       4KB                      5M
+		有效期                                   有						没有
+		........
+三、webStorage
+	sessionStorage         增删改查    ----  临时存储、浏览器关闭，自动执行了删除命令
+		添加
+			sessionStorage.setItem(key,value);******
+			sessionStorage.key = value;			
+			sessionStorage["key"] = value;
+		删除
+			sessionStorage.removeItem(key);
+		修改	
+			sessionStorage.setItem(key,value);******
+			sessionStorage.key = value;
+			sessionStorage["key"] = value;
+		查询
+			sessionStorage.getItem(key);
+			sessionStorage.key
+	
+	localStorage ---- 和sessionStorage具有相同的API  ----  永久存储
+
+四、localStorage其他的方法
+	如果有很多的localStorage信息，但是不知道key值，此时你需要获取value值
+		localStrorage.key(index) --- 根据索引值得到每一个key值
+		索引值从哪来   ---  循环  --- 长度
+			localStorage.length   ----  本地存储lcoalStorage的总个数
+	清空数据
+		localStorage.clear()
+五、localStrorage    可以存储任何数据类型的数据（正确理解）
+		key  固定  --- 唯一
+		value   boolean，number ，string，object   ---------   最好是string
+			
+		管理系统
+			对象  user
+					username
+					email
+					tel
+					note
+				按照姓名检索      将username用作key，将对象user转换成的字符串当做value
+				
+			var user = {
+				username:name的值,
+				email:的值,
+				tel:tel的值,
+				note:note
+			}	
+			localStorage.setItem("username":JSON.stringify(user))
+			
+			val---检索的输入的名称
+			var userStr = localStorage.getItem(val);
+			if(userStr){
+				var obj = JSON.parse(userStr);
+				console.log(obj.username)
+			}
+
+六、多媒体
+	gif图：http://img5.imgtn.bdimg.com/it/u=3099569461,2149397522&fm=28&gp=0.jpg
+	
+	video MP4/ogg/webm
+	audio mp3/ogg/Wav
+		
+		controls loop autoplay
+	
+	video   
+		poster   加载视频到视频开始播放时显示的图片
+
+	audio 与video具有相同的API
+		
+	video
+		播放、暂停
+			vdo.play()
+			vdo.pause()
+		当前播放的事件
+			vdo.currentTime
+		播放总时长
+			vdo.duration
+		视频、音频播放监听事件,playing代表的是播放时的事件
+			vdo.addEventListener("timeUpdate",playing,false);
+		音量 0-1    ---- 不同于电脑中的音量
+			vdo.volume = 0.5
+		设置全屏
+			container.requestFullScreen();
+			
+			document.cancelFullScreen();
+作业
+	小说
+	字体大小  字体颜色   背景颜色的设置
+	留言本
+	视频播放器中的音量调节
+	
+	大作业
+		音乐播放器0

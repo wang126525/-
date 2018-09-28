@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+    	
+    	<button>创建小球</button>
+    	<input type="text" class="li" placeholder="力度"/>
+    	<input type="text" class="jiao" placeholder="角度"/>
+    </body>
+    <script type="text/javascript" src="js/jquery-1.11.0.js" ></script>
+    <script>
+        
+      var A = new ball()
+        function ball(){
+        	var that = this
+        	this.creatball=function(){
+        		$("button").on("click",function(){
+		        	console.log(1)
+		        	$("body").append("<div class='qiu'></div>")
+		        	that.qiu()
+		        })
+        		
+        	}
+        	this.creatban=function(){	
+		       	$("body").append("<div class='ban'></div>")	
+        	}
+        	this.qiu=function(){
+//      		console.log(3,$(".qiu"))
+        		$(".qiu").on('click',function(){
+        			console.log(2);
+        			var jiao=$(".jiao").val()*Math.PI/180;
+        			var li=$(".li").val();
+        			var chuy=Math.sin(jiao)*li ||33;
+        			var chux=Math.cos(jiao)*li ||17;
+        			var zhong=-1;
+        			
+        			var h=0;
+        			var w=0
+        			var time=setInterval(function(){
+        				h=h+chuy;
+        				chuy=chuy+zhong
+        				w=w+chux
+        				$(".qiu").css({
+        					bottom:h+"px",
+        					left:w+"px"
+        				})
+        				if(h<=0){
+        					clearInterval(time)
+        				}
+        			},30)
+        		})
+        	}
+        	
+        
+        	this.init=function(){
+        		this.creatball();
+        		this.creatban();
+        		
+        	}
+        	this.init();
+        }
+    </script>
+</html>

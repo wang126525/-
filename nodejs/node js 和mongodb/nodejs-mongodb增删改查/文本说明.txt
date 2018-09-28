@@ -1,0 +1,3 @@
+insertData:数据以数组的形成传入，例如[{},{}]
+findData:查到的数据，要经过toArray(),转换；
+updateData:设置条件时(db,name,{},{$set:{}},callback);

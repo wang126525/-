@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+		<style type="text/css">
+			.test{
+				width: 100px;
+				height: 100px;
+				border: 1px solid #ccc;
+			}
+			.test-a{
+				background-color: #f66;
+			}
+			.test-b{
+				background-color: #00f;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="test" v-bind:class="{'test-a':isA,'test-b':isB}"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var wv = new Vue({
+		  el:"#app",
+		  data:{
+		  	isA:false,
+		  	isB:true
+		  },
+		  methods:{
+		  	
+		  },
+		  computed:{
+		  	newList:function(){
+		  		var arr = [];
+		  		var that = this;
+		  		this.list.forEach(function(item){
+		  			if(item.indexOf(that.search) != -1){
+		  				arr.push(item)
+		  			}
+		  		})
+		  		return arr;
+		  	}
+		  },
+		  watch:{
+		  	search:function(newVal,oldVal){
+		  		console.log(newVal+"---"+oldVal)
+		  		var arr = [];
+		  		this.testArr = this.list;
+		  		var that = this;
+		  		this.testArr.forEach(function(item){
+		  			if(item.indexOf(newVal) != -1){
+		  				arr.push(item)
+		  			}
+		  		});
+		  		this.testArr = arr;
+		  	}
+		  }
+		})
+		
+		wv.$watch("search",function(newVal,oldVal){
+			console.log(newVal+"---"+oldVal)
+		});
+	</script>
+</html>

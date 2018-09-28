@@ -1,0 +1,192 @@
+
+gulp 
+	基于nodejs的自动任务运行器，前段工程化的构建工具
+		测试、检查、合并、压缩、格式化、浏览器自动刷新、部署文件生成，并监听文件在改动后重复指定的这些步骤。
+	
+	运行
+	 gulp 任务名称	
+
+1.全局安装gulp
+	cnpm install gulp -g
+	
+	测试 
+		gulp -v
+2、初始化----生成package.json文件，这一步可以省略
+	cnpm init
+
+3、安装本地的gulp
+	cnpm install gulp --save  ---项目依赖
+	cnpm install gulp --save-dev   ----开发依赖
+	
+4、构建项目的基本开发目录
+	gulp-course
+		css
+		html
+		image
+		js
+		json
+		xml
+		index.html
+
+5、创建一个文件gulpfile.js
+	----命令操作的文件，可以执行测试、检查、合并、压缩、格式化、浏览器自动刷新、部署文件生成，并监听文件在改动后重复指定的这些步骤。
+	
+6、假设我们的项目上线的目录为dist
+	dist文件夹中的东西就是要上传到服务器里面的东西
+	
+7、复制操作
+	页面、图片、css文件等任何文件
+	
+	页面
+		gulp.task("copy-index",function(){
+			//文件的路径
+			gulp.src("./index.html")
+				.pipe(gulp.dest("dist"));//表示如果没有dist文件夹，则创建一个文件夹，并且将index.html放进去
+		})
+		
+	图片----推荐一劳永逸---第三种方法
+		gulp.task("copy-image",function(){
+		//	gulp.src("./image/*.jpg")//只负责复制jpg图片
+		//	gulp.src("./image/*.{jpg,png}")//负责复制jpg和png格式的图片
+			gulp.src("./image/**/*")//负责复制image文件夹下的所有的文件
+				.pipe(gulp.dest("dist/image"));
+		})
+		
+	//同时负责json文件夹下的和xml文件夹下的到dist的data目录中去,加入在json文件家中c.json不希望复制过，我们使用！来搞定
+	gulp.task("copy-data",function(){
+		gulp.src(["xml/*.xml","json/*.json","!json/c.json"])
+			.pipe(gulp.dest("dist/data"));
+	})
+
+8、如果希望一次性执行多个任务，使用的自带的任务--build
+	gulp.task("build",["copy-index","copy-image","copy-data"],function(){
+		console.log("执行完毕")
+	})
+	
+9、实时监测文件的更新  ---  任务watch
+	gulp.task("watch",function(){
+		gulp.watch("./index.html",["copy-index"]);
+		gulp.watch("./image/**/*",["copy-image"]);
+		gulp.watch(["xml/*.xml","json/*.json","!json/c.json"],["copy-data"]);
+	})
+	
+10、自动任务----执行时只需要输入gulp 即可   不需要输入 gulp defalt
+	gulp.task("default",["build","watch"])
+	
+11、gulp插件
+	less   ----- 添加到build和watch任务中
+		cnpm i gulp-less --save
+		gulp.task("less",function(){
+			gulp.src("./css/test.less")
+				.pipe(less())//编译less文件---less()
+				.pipe(gulp.dest("dist/css"));
+		})
+	sass  ----- 添加到build和watch任务中
+		cnpm i gulp-sass --save
+		gulp.task("sass",function(){
+			gulp.src("./css/main.scss")
+				.pipe(sass())//编译less文件---less()
+				.pipe(gulp.dest("dist/css"));
+		})
+
+	服务器配置  
+		cnpm i gulp-connect --save
+		--- server   不能更改任务名
+		gulp.task("server",function(){
+			connect.server({
+				root:"dist", //启动项目目录
+				livereload:true   //热加载---实时更新数据---- 在更改完数据需要的地方设置一个connect.reload(),給每一个任务都加
+			})
+		})
+	
+	合并文件
+		cnpm i gulp-concat --save
+		
+		//合并js文件
+		gulp.task("script",function(){
+			gulp.src("./js/*.js")
+				.pipe(concat("ab.js"))   //css文件也可以合并，less文件也可以合并，scss文件也可以合并
+				.pipe(gulp.dest("dist/js"))
+		})
+		
+	压缩js文件
+		cnpm i gulp-uglify  --save
+		gulp.task("script",function(){
+			gulp.src("./js/*.js")
+				.pipe(concat("ab.js"))
+				.pipe(uglify()) // 压缩js代码
+				.pipe(gulp.dest("dist/js"))
+		})
+
+	压缩css文件
+		cnpm i gulp-minify-css --save
+		
+		//less编译
+		gulp.task("less",function(){
+			gulp.src("./css/test.less")
+				.pipe(less())//编译less文件---less()
+				.pipe(minifyCss()) //压缩之后再放进文件夹
+				.pipe(gulp.dest("dist/css"))
+				.pipe(connect.reload())
+		})
+		
+		//sass编译
+		gulp.task("sass",function(){
+			gulp.src("./css/main.scss")
+				.pipe(sass())//编译less文件---less()
+				.pipe(minifyCss()) //压缩之后再放进文件夹
+				.pipe(gulp.dest("dist/css"))
+				.pipe(connect.reload())
+		})
+		
+	重起名字
+		cnpm i gulp-rename --save
+		
+		//合并js文件
+		gulp.task("script",function(){
+			gulp.src("./js/*.js")
+				.pipe(concat("ab.js"))  //重起名字
+				.pipe(gulp.dest("dist/js"))
+				.pipe(rename("ab.min.js"))//重起名字
+				.pipe(uglify()) // 压缩js代码
+				.pipe(gulp.dest("dist/js"))
+		})
+		
+		//less编译
+		gulp.task("less",function(){
+			gulp.src("./css/test.less")
+				.pipe(less())//编译less文件---less()
+				.pipe(rename("test.css"))//重起名字
+				.pipe(gulp.dest("dist/css"))
+				.pipe(rename("test.min.css"))//重起名字
+				.pipe(minifyCss())
+				.pipe(gulp.dest("dist/css"))
+				.pipe(connect.reload())
+		})
+		
+		//sass编译
+		gulp.task("sass",function(){
+			gulp.src("./css/main.scss")
+				.pipe(sass())//编译less文件---less()
+				.pipe(rename("main.css"))//重起名字
+				.pipe(gulp.dest("dist/css"))
+				.pipe(rename("main.min.css"))//重起名字
+				.pipe(minifyCss())
+				.pipe(gulp.dest("dist/css"))
+				.pipe(connect.reload())
+		})
+		
+	压缩图片
+		cnpm install gulp-imagemin --save
+		
+		gulp.task("copy-image",function(){
+		//	gulp.src("./image/*.jpg")//只负责复制jpg图片
+		//	gulp.src("./image/*.{jpg,png}")//负责复制jpg和png格式的图片
+			gulp.src("./image/**/*")//负责复制image文件夹下的所有的文件
+				.pipe(imagemin())//压缩图片
+				.pipe(gulp.dest("dist/image"))
+				.pipe(connect.reload())
+		})
+拓展
+	http://npmjs.org/
+		搜索gulp

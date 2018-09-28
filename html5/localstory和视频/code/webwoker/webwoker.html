@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			var worker = new Worker('webwoker.js');
+			worker.onmessage = function(e) {
+				alert('和：' + e.data);
+			};
+
+			function calculate() {
+				console.log(2)
+				var num = 1000000;
+				worker.postMessage(num);
+			}
+			calculate();
+			alert(1)
+		</script>
+	</head>
+
+	<body>
+	</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-app='app'>
+		{{1+1}}
+		<div ng-controller='contro'>
+			{{msg}}
+			<input type="text" ng-model="msg"/>
+			
+		</div>
+		<div class="controller" ng-controller="controller1">
+			{{mao}}
+			<button ng-click='dian($event)'>点击</button>
+			<div ng-='dian2(3)'>
+				<ul>
+					<li ng-repeat="item in arr">
+						{{item}}------{{$index}}
+						<ul  ng-if="$index==5">
+							<li ng-repeat="it in item">
+								{{it}}----{{$index}}--{{$parent.$index}}
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		
+	</body>
+	<script>
+		var app=angular.module("app",[]);
+		app.controller("contro",function($scope,$http){
+			$scope.msg="angular controller";
+			var url="https://api.ricebook.com/hub/home/v1/web/week_choice.json?city_id=299&page=0"
+			var pro=new Promise((resolve,reject)=>{
+				$http({
+					method:"get",
+					url:url,
+					
+				}).then(function(data){
+					console.log(data)
+					resolve(data)
+				},function(err){console.log(err);reject(err)})
+			}).then(function(resolve){
+				console.log(resolve)
+			}).catch(function(){})
+		});
+		app.controller('controller1',function($scope){
+			$scope.mao="angular angular controller controller";
+			$scope.dian=function(ev){
+				console.log(ev.target)
+			};
+			$scope.dian2=function(){
+				console.log(123)
+			};
+			$scope.arr=[1,2,3,4,5,[1,2,3,4,5]]
+		})
+	</script>
+</html>

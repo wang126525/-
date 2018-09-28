@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/fetch-jsonp/1.1.1/fetch-jsonp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jslib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller = "myCtrl">
+	  {{msg}}
+	  <br />
+	  {{count}}
+	   <br />
+    {{num}}
+	</body>
+	<script src="module/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="service/myAjax.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+//		//一定要注意顺序
+//		app.controller("myCtrl",["$scope","$http",function($scope,$http){
+//		  
+//		}])
+      /**
+       * $http   ---ajax请求
+       * $location --- 地址  ---使用的是方法   path() absUrl()  
+       * $timeout  ---  延时器   window.setTimeout(function(){},2000)
+       * $interval  ---- 计时器 window.setInterval(function(){},2000)
+       * 
+       * 自定义服务myServer
+       */
+      app.service("myServer",function(){
+        //写法与面向对象一样
+        this.addFn = function(a,b){
+          return a + b;
+        }
+      })
+   
+      app.controller("myCtrl",function($scope,$location,$timeout,$interval,myServer,myAjax){
+        console.log($location);
+        console.log($location.path());
+        $scope.msg = "1111";
+        $scope.count = 0;
+         $scope.num = 0;
+         
+         myAjax.fetch("http://datainfo.duapp.com/shopdata/getclass.php",function(data){
+           console.log(data)
+         },function(data){
+            console.log(data)
+         });
+         
+         myAjax.fetchJsonp("http://datainfo.duapp.com/shopdata/getGoods.php",function(data){
+           console.log(data)
+         },function(data){
+            console.log(data)
+         });
+         
+        $timeout(function(){
+           $scope.msg = "2222";
+          $scope.num = myServer.addFn(5,6);
+        },2000);
+        $interval(function(){
+          $scope.count++;
+        },1000);
+      });
+	</script>
+</html>
